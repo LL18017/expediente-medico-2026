@@ -1,18 +1,47 @@
 const routes = [
   {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
-    ]
+    path: "/",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [{ path: "", component: () => import("pages/LoginPage.vue") }],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue')
-  }
-]
+    path: "/expediente",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+  },
+  {
+    path: "/pacientes",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/Pacientes.vue") }],
+  },
+  {
+    path: "/pacientes/nuevo-paciente",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      { path: "", component: () => import("pages/NuevoPaciente.vue") },
+    ],
+  },
+  {
+    path: "/pacientes/estadisticas",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/estadisticas.vue") }],
+  },
+  {
+    path: "/citas/",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/Citas.vue") }],
+  },
+  {
+    path: "/citas/nueva-cita",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/NuevaCita.vue") }],
+  },
 
-export default routes
+  {
+    path: "/:catchAll(.*)*",
+    component: () => import("pages/ErrorNotFound.vue"),
+  },
+];
+
+export default routes;

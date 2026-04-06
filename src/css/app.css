@@ -1,1 +1,4 @@
 /* app global css */
+p {
+  overflow-x: scroll;
+}

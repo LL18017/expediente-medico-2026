@@ -17,7 +17,7 @@ const irAlIndex = () => {
         style="width: 78px; height: 83px; object-fit: contain"
       />
       <span class="text-body1 text-center text-grey-7"
-        >Esta accion requiere una verificaion de correo</span
+        >Esta accion requiere una verificaion de correo o no</span
       >
       <q-btn
         rounded-sm

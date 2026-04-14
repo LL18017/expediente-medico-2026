@@ -5,37 +5,35 @@ const routes = [
     children: [{ path: "", component: () => import("pages/LoginPage.vue") }],
   },
 
-  {
+  {//dashboard
     path: "/expediente",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
-  {
-    path: "/pacientes",
+  {//politicas y privaciadad
+    path: "/expediente/politicas-privacidad",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/PoliticasPrivacidad.vue") }],
+  },
+  {//administar pacientes
+    path: "/expediente/pacientes",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/Pacientes.vue") }],
   },
   {
-    path: "/pacientes/nuevo-paciente",
+    path: "/expediente/consultas",
     component: () => import("layouts/MainLayout.vue"),
-    children: [
-      { path: "", component: () => import("pages/NuevoPaciente.vue") },
-    ],
+    children: [{ path: "", component: () => import("pages/consultas.vue") }],
   },
   {
-    path: "/pacientes/estadisticas",
+    path: "/expediente/desarrolladores",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/estadisticas.vue") }],
+    children: [{ path: "", component: () => import("pages/desarrolladores.vue") }],
   },
   {
-    path: "/citas/",
+    path: "/expediente/politicas-privacidad",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Citas.vue") }],
-  },
-  {
-    path: "/citas/nueva-cita",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/NuevaCita.vue") }],
+    children: [{ path: "", component: () => import("pages/PoliticasPrivacidad.vue") }],
   },
 
   {

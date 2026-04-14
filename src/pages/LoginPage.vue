@@ -8,7 +8,7 @@ const irAlIndex = () => {
 };
 </script>
 
-<template>
+<template class="bg-white">
   <q-page>
     <div class="flex column items-center">
       <h4 class="text-h3">Data Doc</h4>

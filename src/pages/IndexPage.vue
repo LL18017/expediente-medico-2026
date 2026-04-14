@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="bg-white">
     <div class="row q-gutter-md">
       <!-- Card 1 -->
       <q-card class="resumen-card text-white bg-teal-5">

@@ -101,6 +101,7 @@ const openModal = () => {
 
 <template>
   <q-page class="q-pa-md">
+    vista para administarr pacientes
     <!-- TABLA -->
     <q-table
       :rows="users"

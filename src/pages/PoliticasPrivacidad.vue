@@ -1,5 +1,7 @@
+<script setup></script>
+
 <template>
   <q-page class="flex column items-center q-pa-xl">
-    vista para crear nuevo paciente
+    vista para politicas y privacidad
   </q-page>
 </template>

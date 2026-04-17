@@ -25,7 +25,7 @@ const loadPatients = async () => {
 };
 
 onMounted(() => loadPatients());
-
+  
 // =====================
 // COLUMNS
 // =====================
@@ -100,7 +100,7 @@ const openModal = () => {
 </script>
 
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="bg-grey-2 text-black q-pa-md flex column items-center q-pa-xl">
     vista para administarr pacientes
     <!-- TABLA -->
     <q-table

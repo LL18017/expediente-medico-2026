@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" class="bg-grey-2 text-black q-pa-md flex column items-center q-pa-xl">
     <!-- HEADER -->
     <q-header>
       <navBarDataDoc />

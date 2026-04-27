@@ -35,6 +35,7 @@ onMounted(() => {
           <q-tab class="tab-item" name="inicio" label="Inicio" @click="goTo('/expediente')" />
           <q-tab class="tab-item" name="consultas" label="Consultas" @click="goTo('/expediente/consultas')" />
           <q-tab class="tab-item" name="pacientes" label="Pacientes" @click="goTo('/expediente/pacientes')" />
+          <q-tab class="tab-item" name="clinicas" label="clinicas" @click="goTo('/expediente/clinicas')" />
           <q-tab class="tab-item" name="expediente" label="Mi Expediente" @click="goTo('/expediente')" />
         </q-tabs>
 
@@ -168,14 +169,26 @@ onMounted(() => {
           <q-item-section>Ayuda</q-item-section class="text-teal text-center text-subtitle1 text-weight-regular">
         </q-item>
 
+
+        <q-item clickable @click="goTo('/expediente/clinicas')"
+          class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section avatar>
+            <q-icon name="home" />
+          </q-item-section>
+          <q-item-section>clinicas</q-item-section class="text-teal text-center text-subtitle1 text-weight-regular">
+        </q-item>
         <q-separator />
 
-        <q-item clickable @click="goTo('/')">
+
+
+        <q-item clickable @click="goTo('/')" class="text-teal text-center text-subtitle1 text-weight-regular">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
-          <q-item-section>Cerrar sesión</q-item-section>
+          <q-item-section>cerrar sesión</q-item-section
+            class="text-teal text-center text-subtitle1 text-weight-regular">
         </q-item>
+        <q-separator />
 
       </q-list>
     </q-drawer>

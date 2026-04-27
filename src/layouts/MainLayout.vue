@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="bg-grey-2 text-black q-pa-md flex column items-center q-pa-xl">
     <!-- HEADER -->
-    <q-header>
+    <q-header class="bg-grey-2 text-dark">
       <navBarDataDoc />
     </q-header>
 
@@ -11,7 +11,7 @@
     </q-page-container>
 
     <!-- FOOTER -->
-    <q-footer elevated>
+    <q-footer elevated class="bg-grey-2 text-dark">
       <footerDataDoc />
     </q-footer>
   </q-layout>

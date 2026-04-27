@@ -71,9 +71,7 @@ const formData = reactive({
 
     cancer: false,
     cancerDetalle: "",
-    otros: [
-      { enfermedad: "", detalles: "" }
-    ],
+    otros: [],
   },
   // Paso 3: Antecedentes Patologicos
   antecedentesPatologicos: {
@@ -165,13 +163,13 @@ const aseguradorasOptions = [
   "AXA",
   "Metlife",
   "Otra",
-];*/
-/*
+];
+*/
 const opcionesEmbarazo = [
   { label: "Normal", value: "Normal" },
   { label: "Con complicaciones", value: "Con complicaciones" },
 ];
-*/
+
 // =====================
 // COMPUTED
 // =====================
@@ -563,7 +561,7 @@ const prevStep = () => {
       </template>
     </q-table>
 
-    <!-- Modal para agregar daros -->
+    <!-- =====================Modal para agregar datos================ -->
     <q-dialog v-model="showDialog" persistent>
       <q-card style="min-width: 500px; max-width: 600px">
         <q-card-section class="bg-primary text-white">
@@ -572,7 +570,6 @@ const prevStep = () => {
         </q-card-section>
 
         <q-card-section class="q-pt-md">
-          <!--////////////// Paso 1: Datos Personales ///////////////////////-->
           <!-- ================= PASO 1: DATOS PERSONALES ================= -->
           <div v-if="currentStep === 1">
             <div class="text-h6 text-primary q-mb-md">Datos personales</div>
@@ -692,8 +689,219 @@ const prevStep = () => {
               </div>
             </div>
           </div>
-        </q-card-section>
+          <!--============================Paso 3: Antecedentes PAtologicos====================-->
+          <div v-if="currentStep === 3">
+            <div class="text-h6 text-primaty q-mb-md">Antecedentes Patológicos</div>
+            <div class="row q-col gutter-md">
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-5">
+                    <strong>Enfermedades</strong>
+                  </div>
+                  <div class="col-7">
+                    <q-toggel v-memo="formData.antecedentesPatologicos.enfermedades" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPatologicos.enfermedades"
+                  v-model="formData.antecedentesPatologicos.enfermedadesDetalle" label="Especificar" outlined
+                  dense="" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-5">
+                    <strong>Hospitalizaciones</strong>
+                  </div>
+                  <div class="col-7">
+                    <q-toggel v-model="formData.antecedentesPatologicos.hospitalizaciones" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPatologicos.hospitalizaciones"
+                  v-model="formData.antecedentesPatologicos.hospitalizacionesDetalle" label="Especificar" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-5">
+                    <strong>Transfusiones</strong>
+                  </div>
+                  <div class="col-7">
+                    <q-toggle v-model="formData.antecedentesPatologicos.transfusiones" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPatologicos.transfusiones"
+                  v-model="formData.antecedentesPatologicos.transfusionesDetalle" label="Especificar" outlined dense
+                  class="q-mt-sm q-ml*md" />
+              </div>
+              <div class="col-12">
+                <dic class="row items-center">
+                  <div class="col-5">
+                    <strong>INtervenciones Quirúrgicas</strong>
+                  </div>
+                  <div class="col-7">
+                    <q-toggle v-model="formData.antecedentesPatologicos.intervenciones" color="primary" />
+                  </div>
+                </dic>
+                <q-input v-if="antecedentesPatologicos.intervenciones"
+                  v-model="formData.antecedentesPatologicos.intervencionesDetalle" label="Especificar" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-5">
+                    <strong>Traumatismo / Facturas</strong>
+                  </div>
+                  <div class="col-7">
+                    <q-toggle v-model="formData.antecedentesPatologicos.traumatismos" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPatologicos.traumatismos"
+                  v-model="formData.antecedentesPatologicos.traumatismosDetalle" label="Especificar" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+            </div>
+          </div>
+          <!-- ================= PASO 4: ANTECEDENTES NO PATOLÓGICOS ================= -->
+          <div v-if="currentStep === 4">
+            <div class="text-h6 text-primary q-mb-md">Antecedentes No Patológicos</div>
+            <div class="row q-col-gutter-md">
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Tabaco</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.tabaco" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.tabaco"
+                  v-model="formData.antecedentesNoPatologicos.tabacoCantidad" label="Cantidad / Frecuencia" outlined
+                  dense class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Alcohol</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.alcohol" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.alcohol"
+                  v-model="formData.antecedentesNoPatologicos.alcoholFrecuencia" label="Frecuencia" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Drogas</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.drogas" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.drogas"
+                  v-model="formData.antecedentesNoPatologicos.drogasTipo" label="Tipo" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Medicamentos</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.medicamentos" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.medicamentos"
+                  v-model="formData.antecedentesNoPatologicos.medicamentosCuales" label="¿Cuáles?" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Vacunas</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.vacunas" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.vacunas"
+                  v-model="formData.antecedentesNoPatologicos.vacunasCuales" label="¿Cuáles?" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Alergias</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.alergias" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.alergias"
+                  v-model="formData.antecedentesNoPatologicos.alergiasCuales" label="Especificar" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Convivencia con animales</strong></div>
+                  <div class="col-8">
+                    <q-toggle v-model="formData.antecedentesNoPatologicos.convivenciaAnimales" color="primary" />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesNoPatologicos.convivenciaAnimales"
+                  v-model="formData.antecedentesNoPatologicos.convivenciaAnimalesCuales" label="¿Cuáles?" outlined dense
+                  class="q-mt-sm q-ml-md" />
+              </div>
+            </div>
+          </div>
 
+          <!-- ================= PASO 5: ANTECEDENTES PERINATALES ================= -->
+          <div v-if="currentStep === 5">
+            <div class="text-h6 text-primary q-mb-md">Antecedentes Perinatales / Pediátricos</div>
+            <div class="row q-col-gutter-md">
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Embarazo</strong></div>
+                  <div class="col-8">
+                    <q-option-group v-model="formData.antecedentesPerinatales.embarazo" :options="opcionesEmbarazo"
+                      color="primary" inline />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPerinatales.embarazo === 'Con complicaciones'"
+                  v-model="formData.antecedentesPerinatales.embarazoComplicaciones" label="Especificar complicaciones"
+                  outlined dense class="q-mt-sm q-ml-md" />
+              </div>
+
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Parto</strong></div>
+                  <div class="col-8">
+                    <q-option-group v-model="formData.antecedentesPerinatales.parto" :options="opcionesEmbarazo"
+                      color="primary" inline />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPerinatales.parto === 'Con complicaciones'"
+                  v-model="formData.antecedentesPerinatales.partoComplicaciones" label="Especificar complicaciones"
+                  outlined dense class="q-mt-sm q-ml-md" />
+              </div>
+
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Desarrollo</strong></div>
+                  <div class="col-8">
+                    <q-option-group v-model="formData.antecedentesPerinatales.desarrollo" :options="opcionesEmbarazo"
+                      color="primary" inline />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPerinatales.desarrollo === 'Con complicaciones'"
+                  v-model="formData.antecedentesPerinatales.desarrolloComplicaciones" label="Especificar complicaciones"
+                  outlined dense class="q-mt-sm q-ml-md" />
+              </div>
+
+              <div class="col-12">
+                <div class="row items-center">
+                  <div class="col-4"><strong>Crecimiento</strong></div>
+                  <div class="col-8">
+                    <q-option-group v-model="formData.antecedentesPerinatales.crecimiento" :options="opcionesEmbarazo"
+                      color="primary" inline />
+                  </div>
+                </div>
+                <q-input v-if="formData.antecedentesPerinatales.crecimiento === 'Con complicaciones'"
+                  v-model="formData.antecedentesPerinatales.crecimientoComplicaciones"
+                  label="Especificar complicaciones" outlined dense class="q-mt-sm q-ml-md" />
+              </div>
+            </div>
+          </div>
+        </q-card-section>
         <q-card-actions align="right" class="q-pa-md">
           <q-btn flat label="Cancelar" v-close-popup color="negative" @click="closeDialog" />
           <q-btn v-if="currentStep > 1" flat label="Atrás" color="secondary" @click="prevStep" />

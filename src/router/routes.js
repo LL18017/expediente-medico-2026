@@ -31,6 +31,11 @@ const routes = [
     children: [{ path: "", component: () => import("pages/consultas.vue") }],
   },
   {
+    path: "/expediente/examenes",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/examenes.vue") }],
+  },
+  {
     path: "/expediente/desarrolladores",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/desarrolladores.vue") }],

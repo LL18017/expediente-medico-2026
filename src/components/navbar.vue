@@ -37,6 +37,7 @@ onMounted(() => {
           <q-tab class="tab-item" name="pacientes" label="Pacientes" @click="goTo('/expediente/pacientes')" />
           <q-tab class="tab-item" name="clinicas" label="clinicas" @click="goTo('/expediente/clinicas')" />
           <q-tab class="tab-item" name="expediente" label="Mi Expediente" @click="goTo('/expediente')" />
+          <q-tab class="tab-item" name="examenes" label="Examenes" @click="goTo('/expediente/examenes')" />
         </q-tabs>
 
         <q-space />
@@ -144,6 +145,14 @@ onMounted(() => {
           <q-item-section>Mi Expediente</q-item-section>
         </q-item>
 
+        <q-item clickable @click="goTo('/expediente/examenes')"
+          class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section avatar>
+            <q-icon name="event" />
+          </q-item-section>
+          <q-item-section>Examenes</q-item-section>
+        </q-item>
+
 
         <q-item clickable @click="goTo('/expediente/politicas-privacidad')"
           class="text-teal text-center text-subtitle1 text-weight-regular">
@@ -193,7 +202,7 @@ onMounted(() => {
       </q-list>
     </q-drawer>
 
-    <!-- 📄 CONTENIDO -->
+    <!-- CONTENIDO -->
     <q-page-container>
       <router-view />
     </q-page-container>

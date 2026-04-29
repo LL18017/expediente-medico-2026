@@ -2,3 +2,7 @@
 p {
   overflow-x: scroll;
 }
+html, body {
+  height: 100%;
+  overflow: hidden;
+}

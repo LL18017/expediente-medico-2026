@@ -1,6 +1,119 @@
 <template>
-    <q-page class="bg-grey-2 q-pa-md">
+    <!-- //////////////////////
+                     VISTA DE MOVIL 
+                            /////////////////////// -->
 
+    <q-page v-if="$q.screen.lt.md" class="q-pa-sm" style="height: 100vh; overflow-y: auto;"> <!--  bara de busqyeda -->
+        <q-input v-model="search" rounded outlined placeholder="Buscar paciente" class="q-mb-md">
+            <template v-slot:prepend>
+                <q-icon name="arrow_back" />
+            </template>
+            <template v-slot:append>
+                <q-icon name="search" />
+            </template>
+        </q-input>
+
+        <!-- ESTADO VACÍO ( solamente es para cuando se pasa a vista movil por primera vez ) -->
+        <div v-if="!pacienteSeleccionado" class="text-center q-mt-xl">
+
+            <q-img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" style="width: 150px; margin: auto;" />
+
+            <div class="text-grey-7 q-mt-md">
+                Busca y selecciona un paciente
+            </div>
+        </div>
+
+        <!-- PACIENTE (solo si hay búsqueda y selección) -->
+        <q-list v-if="search.length > 0" bordered class="q-mb-md">
+            <q-item v-for="paciente in filteredPacientes" :key="paciente.id" clickable
+                @click="selectPaciente(paciente)">
+                <q-item-section avatar>
+                    <q-img src="/src/assets/avatar-doctor.png" style="width: 40px; height: 40px;" />
+                </q-item-section>
+
+                <q-item-section>
+                    {{ paciente.nombre }}
+                </q-item-section>
+            </q-item>
+        </q-list>
+
+        <!--informacion del paciente -->
+        <div v-if="pacienteSeleccionado" class="bg-grey-3 q-pa-md q-mb-md row items-center">
+            <q-img src="/src/assets/avatar-doctor.png" style="width: 40px; height: 40px;" />
+            <div class="q-ml-md">
+                <div class="text-subtitle1">
+                    Paciente: {{ pacienteSeleccionado.nombre }}
+                </div>
+                <div class="text-caption">
+                    Edad: {{ pacienteSeleccionado.edad }} años
+                </div>
+            </div>
+        </div>
+
+
+        <!-- FORMULARIO ( para el registro de exámenes) -->
+        <div v-if="pacienteSeleccionado" class="bg-white q-pa-md q-mb-md">
+
+            <div class="text-h6 text-center q-mb-md">Exámenes</div>
+
+            <q-form ref="formExamenMobile">
+
+                <q-input v-model="form.fecha" label="Fecha" outlined dense class="q-mb-sm"
+                    :rules="[val => !!val || 'Este campo es obligatorio']" />
+
+                <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm"
+                    :rules="[val => !!val || 'Este campo es obligatorio']" />
+
+                <q-select v-model="form.tipo" :options="tiposExamen" label="Tipo de Examen" outlined dense
+                    class="q-mb-sm" :rules="[val => !!val || 'Selecciona un tipo']" />
+
+                <q-input v-model="form.motivo" label="Motivo de realización de examen" type="textarea" outlined dense
+                    class="q-mb-md" :rules="[val => !!val || 'Este campo es obligatorio']" />
+
+            </q-form>
+
+            <!-- BOTONES -->
+            <div class="row q-gutter-sm justify-center">
+                <q-btn color="teal" label="Nuevo" icon="add" @click="nuevoExamenMobile" />
+                <q-btn color="primary" label="Guardar" icon="folder" @click="guardarExamenMobile" />
+                <q-btn color="negative" label="Eliminar" icon="delete" @click="eliminarExamen" />
+            </div>
+
+        </div>
+
+        <!--HISTORIAL  -->
+        <div v-if="pacienteSeleccionado" class="bg-white q-pa-md">
+
+            <div class="text-subtitle1 text-center q-mb-md">
+                Historial de Exámenes
+            </div>
+
+            <q-list bordered separator>
+                <q-item v-for="examen in historial" :key="examen.id">
+                    <q-item-section>
+                        <div class="text-caption text-grey">
+                            {{ examen.fecha }}
+                        </div>
+                        <div class="text-body1">
+                            {{ examen.tipo }}
+                        </div>
+                    </q-item-section>
+
+                    <q-item-section side>
+                        <q-checkbox v-model="examen.realizado" />
+                    </q-item-section>
+                </q-item>
+            </q-list>
+            <q-space style="height: 120px;" />
+
+        </div>
+    </q-page>
+
+    <!-- //////////////////////
+                     VISTA DE ORDENADOR 
+                            /////////////////////// -->
+
+    <q-page v-else class="bg-grey-2 q-pa-md">
         <div class="row q-col-gutter-md">
 
             <!-- SECCIÓN IZQUIERDA -->
@@ -92,16 +205,21 @@
                         <!-- Formulario -->
                         <div class="col-7">
 
-                            <div class="text-h4 q-mb-sm ">Exámenes</div>
+                            <q-form ref="formExamen">
 
-                            <q-input v-model="form.fecha" label="Fecha" outlined dense class="q-mb-sm" />
-                            <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm" />
+                                <q-input v-model="form.fecha" label="Fecha" outlined dense class="q-mb-sm"
+                                    :rules="[val => !!val || 'Este campo es obligatorio']" />
 
-                            <q-select v-model="form.tipo" :options="tiposExamen" label="Tipo de Examen" outlined dense
-                                class="q-mb-sm" />
+                                <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm"
+                                    :rules="[val => !!val || 'Este campo es obligatorio']" />
 
-                            <q-input v-model="form.motivo" label="Motivo del examen" type="textarea" outlined dense
-                                class="q-mb-md" />
+                                <q-select v-model="form.tipo" :options="tiposExamen" label="Tipo de Examen" outlined
+                                    dense class="q-mb-sm" :rules="[val => !!val || 'Selecciona un tipo']" />
+
+                                <q-input v-model="form.motivo" label="Motivo" type="textarea" outlined dense
+                                    class="q-mb-md" :rules="[val => !!val || 'Este campo es obligatorio']" />
+
+                            </q-form>
 
                             <!-- Botones -->
                             <div class="flex flex-center q-gutter-sm">
@@ -131,22 +249,15 @@
                                         <q-checkbox v-model="examen.realizado" />
                                     </q-item-section>
                                 </q-item>
-
                             </q-list>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </q-page>
-</template>
 
+</template>
 <script>
 export default {
     name: "ExamenesPage",
@@ -174,8 +285,8 @@ export default {
             tiposExamen: ["Orina", "Sangre", "Glucosa"],
 
             historial: [
-                { fecha: "12/10/2025", tipo: "Orina", realizado: false },
-                { fecha: "01/01/2026", tipo: "Glucosa", realizado: true }
+                { id: 1, fecha: "12/10/2025", tipo: "Orina", realizado: false },
+                { id: 2, fecha: "01/01/2026", tipo: "Glucosa", realizado: false }
             ]
         };
     },
@@ -185,18 +296,26 @@ export default {
             return this.pacientes.filter(p =>
                 p.nombre.toLowerCase().includes(this.search.toLowerCase())
             );
+        },
+
+        inicialesPaciente() {
+            if (!this.pacienteSeleccionado) return "";
+            return this.pacienteSeleccionado.nombre
+                .split(" ")
+                .map(n => n[0])
+                .join("")
+                .toUpperCase();
         }
     },
 
     methods: {
         selectPaciente(paciente) {
             this.pacienteSeleccionado = paciente;
+            this.search = "";
         },
 
         goTo(ruta) {
             console.log("Ir a:", ruta);
-            // aquí puedes usar:
-            // this.$router.push('/ruta')
         },
 
         nuevoExamen() {
@@ -206,14 +325,71 @@ export default {
                 tipo: "",
                 motivo: ""
             };
+            this.$refs.formExamen.resetValidation();
         },
 
-        guardarExamen() {
+        async guardarExamen() {
+            const valido = await this.$refs.formExamen.validate();
+
+            if (!valido) {
+                return; // NO guarda si hay errores
+            }
+
             this.historial.push({
                 fecha: this.form.fecha,
                 tipo: this.form.tipo,
                 realizado: false
             });
+
+            // Limpiar datos
+            this.form = {
+                fecha: "",
+                ordenadoPor: "",
+                tipo: "",
+                motivo: ""
+            };
+            this.$refs.formExamen.reset();
+
+            this.$q.notify({
+                type: 'positive',
+                message: 'Examen guardado correctamente'
+            });
+        },
+
+        async guardarExamenMobile() {
+            const valido = await this.$refs.formExamenMobile.validate();
+
+            if (!valido) return;
+
+            this.historial.push({
+                fecha: this.form.fecha,
+                tipo: this.form.tipo,
+                realizado: false
+            });
+            // Limpiar datos
+            this.form = {
+                fecha: "",
+                ordenadoPor: "",
+                tipo: "",
+                motivo: ""
+            };
+            this.$refs.formExamenMobile.reset();
+
+            this.$q.notify({
+                type: 'positive',
+                message: 'Examen guardado correctamente'
+            });
+        },
+
+        nuevoExamenMobile() {
+            this.form = {
+                fecha: "",
+                ordenadoPor: "",
+                tipo: "",
+                motivo: ""
+            };
+
+            this.$refs.formExamenMobile.resetValidation();
         },
 
         eliminarExamen() {
@@ -222,6 +398,9 @@ export default {
     }
 };
 </script>
+
+
+
 <style scoped>
 /* Contenedor principal del menu izquierdo inferior */
 .menu-medico-container {

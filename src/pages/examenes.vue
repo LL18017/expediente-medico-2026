@@ -54,15 +54,26 @@
         <!-- FORMULARIO ( para el registro de exámenes) -->
         <div v-if="pacienteSeleccionado" class="bg-white q-pa-md q-mb-md">
 
-            <div class="text-h6 text-center q-mb-md">Exámenes</div>
+            <div class="text-h6 text-center q-mb-md">Formulario de Exámenes</div>
 
             <q-form ref="formExamenMobile">
 
-                <q-input v-model="form.fecha" label="Fecha" outlined dense class="q-mb-sm"
-                    :rules="[val => !!val || 'Este campo es obligatorio']" />
-
-                <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm"
-                    :rules="[val => !!val || 'Este campo es obligatorio']" />
+                <q-input v-model="form.fecha" label="Fecha de emision" outlined dense class="q-mb-sm" readonly
+                    :rules="[val => !!val || 'Este campo es obligatorio']">
+                    <template v-slot:append>
+                        <q-icon name="event" class="cursor-pointer">
+                            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                <q-date v-model="form.fecha" mask="YYYY-MM-DD">
+                                    <div class="row items-center justify-end">
+                                        <q-btn v-close-popup label="OK" color="primary" flat />
+                                    </div>
+                                </q-date>
+                            </q-popup-proxy>
+                        </q-icon>
+                    </template>
+                </q-input>
+                <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm" readonly />
+                <q-space style="height: 10px;" />
 
                 <q-select v-model="form.tipo" :options="tiposExamen" label="Tipo de Examen" outlined dense
                     class="q-mb-sm" :rules="[val => !!val || 'Selecciona un tipo']" />
@@ -92,9 +103,11 @@
                 <q-item v-for="examen in historial" :key="examen.id">
                     <q-item-section>
                         <div class="text-caption text-grey">
+                            fecha de emision:
                             {{ examen.fecha }}
                         </div>
                         <div class="text-body1">
+                            Tipo de estudio:
                             {{ examen.tipo }}
                         </div>
                     </q-item-section>
@@ -112,6 +125,8 @@
     <!-- //////////////////////
                      VISTA DE ORDENADOR 
                             /////////////////////// -->
+
+
 
     <q-page v-else class="bg-grey-2 q-pa-md">
         <div class="row q-col-gutter-md">
@@ -207,11 +222,24 @@
 
                             <q-form ref="formExamen">
 
-                                <q-input v-model="form.fecha" label="Fecha" outlined dense class="q-mb-sm"
-                                    :rules="[val => !!val || 'Este campo es obligatorio']" />
+                                <q-input v-model="form.fecha" label="Fecha de emision" outlined dense class="q-mb-sm"
+                                    readonly :rules="[val => !!val || 'Este campo es obligatorio']">
+                                    <template v-slot:append>
+                                        <q-icon name="event" class="cursor-pointer">
+                                            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                                <q-date v-model="form.fecha" mask="YYYY-MM-DD">
+                                                    <div class="row items-center justify-end">
+                                                        <q-btn v-close-popup label="OK" color="primary" flat />
+                                                    </div>
+                                                </q-date>
+                                            </q-popup-proxy>
+                                        </q-icon>
+                                    </template>
+                                </q-input>
 
                                 <q-input v-model="form.ordenadoPor" label="Ordenado por" outlined dense class="q-mb-sm"
-                                    :rules="[val => !!val || 'Este campo es obligatorio']" />
+                                    readonly />
+                                <q-space style="height: 10px;" />
 
                                 <q-select v-model="form.tipo" :options="tiposExamen" label="Tipo de Examen" outlined
                                     dense class="q-mb-sm" :rules="[val => !!val || 'Selecciona un tipo']" />
@@ -241,12 +269,15 @@
 
                                 <q-item v-for="(examen, index) in historial" :key="index">
                                     <q-item-section>
-                                        <div class="text-weight-medium">{{ examen.fecha }}</div>
-                                        <div class="text-grey text-caption">{{ examen.tipo }}</div>
+                                        <div class="text-weight-medium">
+                                            Fecaha de emision:
+                                            {{ examen.fecha }}</div>
+                                        <div class="text-grey text-caption">
+                                            Tipo de estudio: {{ examen.tipo }}</div>
                                     </q-item-section>
 
                                     <q-item-section side>
-                                        <q-checkbox v-model="examen.realizado" />
+                                        <q-checkbox label="Estado" v-model="examen.realizado" />
                                     </q-item-section>
                                 </q-item>
                             </q-list>
@@ -259,7 +290,16 @@
 
 </template>
 <script>
+import { userAuth } from 'src/composable/userAuth'
+
 export default {
+    setup() {
+        const { user } = userAuth()
+
+        return {
+            user
+        }
+    },
     name: "ExamenesPage",
 
     data() {
@@ -312,6 +352,7 @@ export default {
         selectPaciente(paciente) {
             this.pacienteSeleccionado = paciente;
             this.search = "";
+            this.form.ordenadoPor = this.user?.nombre || '';
         },
 
         goTo(ruta) {
@@ -326,13 +367,14 @@ export default {
                 motivo: ""
             };
             this.$refs.formExamen.resetValidation();
+            this.form.ordenadoPor = this.user?.nombre || '';
         },
 
         async guardarExamen() {
             const valido = await this.$refs.formExamen.validate();
 
             if (!valido) {
-                return; // NO guarda si hay errores
+                return; // No guardar si el formulario no es válido
             }
 
             this.historial.push({
@@ -388,7 +430,7 @@ export default {
                 tipo: "",
                 motivo: ""
             };
-
+            this.form.ordenadoPor = this.user?.nombre || '';
             this.$refs.formExamenMobile.resetValidation();
         },
 
@@ -397,9 +439,8 @@ export default {
         }
     }
 };
+
 </script>
-
-
 
 <style scoped>
 /* Contenedor principal del menu izquierdo inferior */

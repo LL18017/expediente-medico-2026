@@ -20,12 +20,17 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/Pacientes.vue") }],
   },
-  {//administar recetas 
+  {//administar recetas
     path: "/expediente/recetas",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/Recetas.vue") }],
   },
-  {//administar clinicas 
+  {
+    path: "/expediente/paciente",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/MyExpediente.vue") }],
+  },
+  {//administar clinicas
     path: "/expediente/clinicas",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/clinicas.vue") }],

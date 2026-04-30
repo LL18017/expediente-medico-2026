@@ -5,12 +5,23 @@ defineOptions({
 
 import { ref, reactive, computed, /*onMounted, getCurrentInstance*/ } from "vue";
 import { Notify } from "quasar";
+import { useRouter } from "vue-router";
 import logo from "src/assets/logo.png";
+//import router from "src/router";
+
+
+const router = useRouter();  // ← IMPORTANTE: inicializar router
+
+// Verificar que router existe (para depuración)
+console.log("Router inicializado:", !!router);
+console.log("router.push existe:", !!router?.push);
+
 
 // =====================
 // STATE
 // =====================
 //const users = ref([]);
+
 const filter = ref("");
 const showDialog = ref(false);
 const selectedPatient = ref(null);
@@ -503,7 +514,7 @@ const savePatient = async () => {
     });
   }
 };
-
+/*
 const deletePatient = (row) => {
   users.value = users.value.filter((u) => u._id !== row._id);
   Notify.create({
@@ -562,7 +573,7 @@ const viewPatient = (row) => {
     timeout: 1500,
   });
 };
-
+*/
 const addPatient = () => {
   isEditing.value = false;
   editingId.value = null;
@@ -571,6 +582,14 @@ const addPatient = () => {
   showDialog.value = true;
 };
 
+
+const verExpediente = (paciente) => {
+  console.log("Navegando a expediente:", paciente);
+  router.push({
+    path: "/expediente/paciente",
+    query: { paciente: JSON.stringify(paciente) }
+  });
+};
 const closeDialog = () => {
   showDialog.value = false;
   selectedPatient.value = null;
@@ -693,14 +712,8 @@ const prevStep = () => {
 
       <template v-slot:body-cell-acciones="props">
         <q-td align="center" class="q-gutter-sm">
-          <q-btn dense flat icon="edit" color="primary" @click="editPatient(props.row)">
-            <q-tooltip>Editar</q-tooltip>
-          </q-btn>
-          <q-btn dense flat icon="delete" color="negative" @click="deletePatient(props.row)">
-            <q-tooltip>Eliminar</q-tooltip>
-          </q-btn>
-          <q-btn dense flat icon="visibility" color="info" @click="viewPatient(props.row)">
-            <q-tooltip>Ver detalle</q-tooltip>
+          <q-btn dense flat icon="edit" color="primary" @click="verExpediente(props.row)">
+            <q-tooltip>Ver Expediente</q-tooltip>
           </q-btn>
         </q-td>
       </template>
@@ -727,9 +740,7 @@ const prevStep = () => {
 
             <q-separator />
             <q-card-actions align="right" class="responsive-actions">
-              <q-btn flat icon="edit" color="primary" @click="editPatient(props.row)" size="responsive" />
-              <q-btn flat icon="delete" color="negative" @click="deletePatient(props.row)" size="responsive" />
-              <q-btn flat icon="visibility" color="info" @click="viewPatient(props.row)" size="responsive" />
+              <q-btn flat icon="visibility" color="info" @click="verExpediente(props.row)" size="responsive" />
             </q-card-actions>
           </q-card>
         </div>

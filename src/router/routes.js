@@ -20,6 +20,11 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/Pacientes.vue") }],
   },
+  {//administar recetas 
+    path: "/expediente/recetas",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/Recetas.vue") }],
+  },
   {//administar clinicas 
     path: "/expediente/clinicas",
     component: () => import("layouts/MainLayout.vue"),

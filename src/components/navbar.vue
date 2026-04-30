@@ -130,6 +130,14 @@ onMounted(() => {
           <q-item-section>Consultas</q-item-section>
         </q-item>
 
+        <q-item clickable @click="goTo('/expediente/recetas')"
+          class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section avatar>
+            <q-icon name="people" />
+          </q-item-section>
+          <q-item-section>Recetas</q-item-section>
+        </q-item>
+
         <q-item clickable @click="goTo('/expediente/pacientes')"
           class="text-teal text-center text-subtitle1 text-weight-regular">
           <q-item-section avatar>

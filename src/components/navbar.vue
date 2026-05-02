@@ -23,14 +23,28 @@ onMounted(() => {
 
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!-- 🔝 HEADER -->
+    <!--  HEADER -->
     <q-header elevated class="bg-teal text-white">
       <q-toolbar>
+        <!-- LOGO ESCRITORIO (Izquierda) -->
+        <q-toolbar-title v-if="$q.screen.gt.sm" shrink class="text-white q-mr-xl">
+          <div style="font-family: 'Comfortaa', cursive; font-size: 1.5rem; letter-spacing: -1px;">
+            <span class="text-weight-bolder">Data</span><span class="text-weight-light">Doc</span>
+          </div>
+        </q-toolbar-title>
 
-        <!-- 📱 MOBILE: botón menú -->
+        <!--  MOBILE: botón menú -->
         <q-btn v-if="$q.screen.lt.md" flat round icon="menu" @click="toggleDrawer" />
 
-        <!-- 🖥️ DESKTOP: menú horizontal -->
+        <!--  LOGO CENTRAL EN MÓVIL -->
+        <q-toolbar-title v-if="$q.screen.lt.md" class="absolute-center">
+          <div class="text-white" style="font-family: 'Comfortaa', cursive; font-size: 1.5rem; letter-spacing: -1px;">
+            <span class="text-weight-bolder">Data</span><span class="text-weight-light">Doc</span>
+          </div>
+        </q-toolbar-title>
+
+
+        <!-- DESKTOP: menú horizontal -->
         <q-tabs v-if="$q.screen.gt.sm" align="center" class="text-white tabs-desktop">
           <q-tab class="tab-item" name="inicio" label="Inicio" @click="goTo('/expediente')" />
           <q-tab class="tab-item" name="consultas" label="Consultas" @click="goTo('/expediente/consultas')" />
@@ -39,6 +53,7 @@ onMounted(() => {
           <q-tab class="tab-item" name="expediente" label="Mi Expediente" @click="goTo('/expediente')" />
           <q-tab class="tab-item" name="examenes" label="Examenes" @click="goTo('/expediente/examenes')" />
         </q-tabs>
+
 
         <q-space />
 
@@ -57,7 +72,7 @@ onMounted(() => {
 
               <q-item>
                 <q-item-section>
-                  <div class="text-weight-regular"> {{ user.nombre }}</div>
+                  <div class="text-weight-regular"> {{ user?.nombre }}</div>
                 </q-item-section>
               </q-item>
 
@@ -100,7 +115,7 @@ onMounted(() => {
       </q-toolbar>
     </q-header>
 
-    <!-- 📱 DRAWER solo móvil -->
+    <!-- DRAWER solo móvil -->
     <q-drawer v-if="$q.screen.lt.md" v-model="leftDrawerOpen" overlay>
 
       <q-list>
@@ -110,7 +125,7 @@ onMounted(() => {
           <q-avatar size="80px">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVyUST5ZFd-LKYvc9xN7zIyNk3zgMCdTXL2Q&s" />
           </q-avatar>
-          <div class="text-h6 text-center">{{ user.nombre }}</div>
+          <div class="text-h6 text-center">{{ user?.nombre }}</div>
           <div class="text-caption">Bienvenido</div>
         </q-item-section>
 
@@ -128,14 +143,6 @@ onMounted(() => {
             <q-icon name="event" />
           </q-item-section>
           <q-item-section>Consultas</q-item-section>
-        </q-item>
-
-        <q-item clickable @click="goTo('/expediente/recetas')"
-          class="text-teal text-center text-subtitle1 text-weight-regular">
-          <q-item-section avatar>
-            <q-icon name="people" />
-          </q-item-section>
-          <q-item-section>Recetas</q-item-section>
         </q-item>
 
         <q-item clickable @click="goTo('/expediente/pacientes')"
@@ -183,7 +190,7 @@ onMounted(() => {
           <q-item-section avatar>
             <q-icon name="help" />
           </q-item-section>
-          <q-item-section>Ayuda</q-item-section class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section class="text-teal text-weight-regular">Ayuda</q-item-section>
         </q-item>
 
 
@@ -192,7 +199,7 @@ onMounted(() => {
           <q-item-section avatar>
             <q-icon name="home" />
           </q-item-section>
-          <q-item-section>clinicas</q-item-section class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section class="text-teal text-weight-regular">Clínicas</q-item-section>
         </q-item>
         <q-separator />
 
@@ -202,8 +209,7 @@ onMounted(() => {
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
-          <q-item-section>cerrar sesión</q-item-section
-            class="text-teal text-center text-subtitle1 text-weight-regular">
+          <q-item-section class="text-teal text-weight-regular">Cerrar Sesión</q-item-section>
         </q-item>
         <q-separator />
 
@@ -220,7 +226,7 @@ onMounted(() => {
 
 <style scoped>
 .tabs-desktop {
-  margin-left: 200px;
+  /*margin-left: 200px;*/
 }
 
 .nav-icosn {
@@ -259,3 +265,4 @@ onMounted(() => {
   }
 }
 </style>
+>>>>>>> Stashed changes

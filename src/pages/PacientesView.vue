@@ -2,56 +2,64 @@
   <q-page class="q-pa-md mobile-scroll-page">
     <div class="text-h6 q-mb-md">Administración de Pacientes</div>
 
-    <q-table :rows="users" :columns="columns" row-key="_id" :filter="filter" :grid="$q.screen.lt.md" flat bordered
-      style="width: 100%">
-      <template v-slot:top>
-        <div class="row column item-start full-width items-center q-gutter-sm">
-          <q-space />
-          <div class="row items-center justify-between full-width">
-            <q-input dense debounce="300" v-model="filter" placeholder="Buscar..." outlined clearable
-              style="width: 450px">
-              <template v-slot:prepend>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-            <q-btn color="primary" icon="add" label="Nuevo Paciente" @click="addPatient" class="q-mt-sm" />
+    <!-- Indicador de carga -->
+    <div v-if="isLoading" class="row justify-center q-pa-md">
+      <q-spinner color="primary" size="3rem" />
+      <p class="q-ml-md">Cargando pacientes...</p>
+    </div>
+
+    <div v-else>
+      <q-table :rows="filteredUsers" :columns="columns" row-key="_id" :filter="filter" :grid="$q.screen.lt.md" flat
+        bordered style="width: 100%">
+        <template v-slot:top>
+          <div class="row column item-start full-width items-center q-gutter-sm">
+            <q-space />
+            <div class="row items-center justify-between full-width">
+              <q-input dense debounce="300" v-model="filter" placeholder="Buscar..." outlined clearable
+                style="width: 450px">
+                <template v-slot:prepend>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+              <q-btn color="primary" icon="add" label="Nuevo Paciente" @click="addPatient" class="q-mt-sm" />
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
 
-      <template v-slot:body-cell-acciones="props">
-        <q-td align="center" class="q-gutter-sm">
-          <q-btn dense flat icon="folder" color="info" @click="verExpediente(props.row)">
-            <q-tooltip>Ver Expediente</q-tooltip>
-          </q-btn>
-          <q-btn dense flat icon="delete" color="negative" @click="deletePatient(props.row)">
-            <q-tooltip>Eliminar</q-tooltip>
-          </q-btn>
-        </q-td>
-      </template>
+        <template v-slot:body-cell-acciones="props">
+          <q-td align="center" class="q-gutter-sm">
+            <q-btn dense flat icon="folder" color="info" @click="verExpediente(props.row)">
+              <q-tooltip>Ver Expediente</q-tooltip>
+            </q-btn>
+            <q-btn dense flat icon="delete" color="negative" @click="deletePatient(props.row)">
+              <q-tooltip>Eliminar</q-tooltip>
+            </q-btn>
+          </q-td>
+        </template>
 
-      <!-- Vista Móvil -->
-      <template v-slot:item="props">
-        <div class="q-pa-sm col-12 col-sm-6 col-md-4">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-truncate">{{ props.row.datosPersonales?.nombres || props.row.nombres }}</div>
-              <div class="text-subtitle2">Teléfono: {{ props.row.datosPersonales?.telefono || props.row.telefono }}
-              </div>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <div><strong>Estado:</strong> {{ (props.row.adicionales?.activo || props.row.activo) ? "Activo" :
-                "Inactivo" }}</div>
-            </q-card-section>
-            <q-separator />
-            <q-card-actions align="right">
-              <q-btn flat icon="folder" color="info" @click="verExpediente(props.row)" size="sm" />
-              <q-btn flat icon="delete" color="negative" @click="deletePatient(props.row)" size="sm" />
-            </q-card-actions>
-          </q-card>
-        </div>
-      </template>
-    </q-table>
+        <!-- Vista Móvil -->
+        <template v-slot:item="props">
+          <div class="q-pa-sm col-12 col-sm-6 col-md-4">
+            <q-card>
+              <q-card-section>
+                <div class="text-h6 text-truncate">{{ props.row.nombres }} {{ props.row.apellidos }}</div>
+                <div class="text-subtitle2">Teléfono: {{ props.row.telefono }}</div>
+                <div class="text-subtitle2">Identificación: {{ props.row.doc?.valor }}</div>
+              </q-card-section>
+              <q-card-section class="q-pt-none">
+                <div><strong>Estado:</strong> Activo</div>
+                <div><strong>Fecha nacimiento:</strong> {{ props.row.fecha_nacimiento }}</div>
+              </q-card-section>
+              <q-separator />
+              <q-card-actions align="right">
+                <q-btn flat icon="folder" color="info" @click="verExpediente(props.row)" size="sm" />
+                <q-btn flat icon="delete" color="negative" @click="deletePatient(props.row)" size="sm" />
+              </q-card-actions>
+            </q-card>
+          </div>
+        </template>
+      </q-table>
+    </div>
 
     <!-- MODAL DE 5 PASOS -->
     <q-dialog v-model="showDialog" persistent class="fixed-size-dialog">
@@ -76,10 +84,11 @@
             <div class="field-group">
               <div class="row q-col-gutter-md">
                 <div class="col-12 col-md-6">
-                  <q-input v-model="formData.datosPersonales.nombres" label="Nombres *" outlined dense />
+                  <q-input v-model="formData.datosPersonales.nombres" label="Nombres *" outlined dense
+                    :rules="[val => !!val || 'Campo obligatorio']" />
                 </div>
                 <div class="col-12 col-md-6">
-                  <q-input v-model="formData.datosPersonales.apellidos" label="Apellidos *" outlined dense />
+                  <q-input v-model="formData.datosPersonales.apellidos" label="Apellidos" outlined dense />
                 </div>
                 <div class="col-12">
                   <div class="text-caption text-grey q-mb-sm">Fecha de nacimiento</div>
@@ -103,7 +112,8 @@
                   <q-radio v-model="formData.datosPersonales.sexo" val="Mujer" label="Mujer" color="primary" />
                 </div>
                 <div class="col-12 col-md-6">
-                  <q-input v-model="formData.datosPersonales.telefono" label="Teléfono *" outlined dense />
+                  <q-input v-model="formData.datosPersonales.telefono" label="Teléfono *" outlined dense
+                    :rules="[val => !!val || 'Campo obligatorio']" />
                 </div>
                 <div class="col-12 col-md-6">
                   <q-input v-model="formData.datosPersonales.identificacion" label="Identificación" outlined dense />
@@ -120,6 +130,13 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <q-input v-model="formData.datosPersonales.email" label="Email" outlined dense type="email" />
+                </div>
+              </div>
+              <!-- Mostrar edad calculada -->
+              <div v-if="edadCalculada !== null" class="row q-mt-md">
+                <div class="col-12">
+                  <q-badge color="info" label="Edad calculada" />
+                  <span class="q-ml-sm">{{ edadCalculada }} años</span>
                 </div>
               </div>
             </div>
@@ -237,7 +254,7 @@
             </div>
           </div>
 
-          <!-- PASO 4: ANTECEDENTES NO PATOLÓGICOS (Simplificado) -->
+          <!-- PASO 4: ANTECEDENTES NO PATOLÓGICOS -->
           <div v-if="currentStep === 4">
             <div class="text-h6 text-primary q-mb-md">Antecedentes No Patológicos</div>
             <div class="field-group">
@@ -276,7 +293,7 @@
             </div>
           </div>
 
-          <!-- PASO 5: ANTECEDENTES PERINATALES (Simplificado) -->
+          <!-- PASO 5: ANTECEDENTES PERINATALES -->
           <div v-if="currentStep === 5">
             <div class="text-h6 text-primary q-mb-md">Antecedentes Perinatales</div>
             <div class="field-group">
@@ -319,12 +336,15 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';  // ← CORREGIDO
-import logo from "src/assets/logo.png";
-import { useGestionPacientes } from 'src/services/GestionPacientes';
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { Notify } from 'quasar'
+import { useGestionPacientes } from 'src/composable/useGestionPacientes'
+import logo from 'src/assets/logo.png'
 
-const router = useRouter();  // ← CORREGIDO: useRouter() no useRoute
+const router = useRouter()
 
+// Usar el composable
 const {
   users,
   filter,
@@ -336,22 +356,56 @@ const {
   opcionesEmbarazo,
   columns,
   dialogTitle,
+  edadCalculada,
+  isLoading,
   savePatient,
   deletePatient,
   addPatient,
   closeDialog,
   nextStep,
-  prevStep,
-} = useGestionPacientes();
+  prevStep
+} = useGestionPacientes()
 
-// Función para ver expediente
+// Filtrar pacientes (búsqueda local adaptada a la estructura de CouchDB)
+const filteredUsers = computed(() => {
+  if (!filter.value) return users.value
+  const searchTerm = filter.value.toLowerCase()
+  return users.value.filter(user => {
+    const nombreCompleto = `${user.nombres || ''} ${user.apellidos || ''}`.toLowerCase()
+    const telefono = user.telefono || ''
+    const identificacion = user.doc?.valor || ''
+    return nombreCompleto.includes(searchTerm) ||
+      telefono.includes(searchTerm) ||
+      identificacion.includes(searchTerm)
+  })
+})
 const verExpediente = (paciente) => {
-  console.log("Navegando a expediente:", paciente);
-  router.push({
-    path: "/expediente/paciente",
-    query: { paciente: JSON.stringify(paciente) }
-  });
-};
+  console.log("Paciente seleccionado:", paciente)
+
+  if (!paciente || !paciente._id) {
+    Notify.create({
+      type: 'error',
+      message: 'Error: Datos del paciente incompletos',
+      position: 'bottom-right'
+    })
+    return
+  }
+
+  try {
+    const pacienteSerializado = JSON.stringify(paciente)
+    router.push({
+      path: '/expediente/paciente',
+      query: { paciente: pacienteSerializado }
+    })
+  } catch (error) {
+    console.error("Error al serializar paciente:", error)
+    Notify.create({
+      type: 'error',
+      message: 'Error al abrir el expediente',
+      position: 'bottom-right'
+    })
+  }
+}
 </script>
 
 <style scoped>
@@ -660,21 +714,6 @@ const verExpediente = (paciente) => {
 
 :deep(.q-option-group .q-radio) {
   margin-right: 16px;
-}
-
-/* ==================== BARRA DE PROGRESO ==================== */
-.progress-bar-container {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  height: 6px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  background: white;
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.3s ease;
 }
 
 /* ==================== SCROLL EN MÓVIL ==================== */

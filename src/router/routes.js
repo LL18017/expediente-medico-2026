@@ -2,7 +2,7 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/AuthLayout.vue"),
-    children: [{ path: "", component: () => import("pages/LoginView.vue") }],
+    children: [{ path: "", component: () => import("pages/auth/LoginView.vue") }],
   },
 
   {//dashboard
@@ -28,7 +28,7 @@ const routes = [
   {
     path: "/expediente/paciente",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/MyExpediente.vue") }],
+    children: [{ path: "", component: () => import("src/pages/MyExpediente.vue") }],
   },
   {//administar clinicas
     path: "/expediente/clinicas",

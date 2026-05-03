@@ -1,0 +1,262 @@
+{
+  "total_rows": 12,
+  "offset": 0,
+  "rows": [
+    {
+      "doc": {
+        "_id": "673f8a2b9d0e4a1c8f1a2b3c4d5e6f7a",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Carlos Miguel",
+        "apellidos": "Chavez Aguilar",
+        "telefono": "7000-0000",
+        "correo": "carmiguel@gmail.com",
+        "direccion": "San Salvador, El Salvador",
+        "fecha_nacimiento": "1998-05-15",
+        "doc": { "tipo": "DUI", "valor": "01234567-8" },
+        "antecedentes_familiares": [
+          { "nombre": "Diabetes", "aplica": true },
+          { "nombre": "Hipertension", "aplica": true }
+        ],
+        "antecedentes_patologicos": [{ "tipo": "asma", "valor": false }],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Ninguno"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_lucia_002",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Lucia Maria",
+        "apellidos": "Mendez",
+        "telefono": "7111-1111",
+        "doc": { "tipo": "DUI", "valor": "87654321-0" },
+        "fecha_nacimiento": "1990-08-20",
+        "condiciones_especiales": "Alergia a la penicilina"
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_elena_003",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Elena Beatriz",
+        "apellidos": "Vásquez Portillo",
+        "telefono": "7222-3333",
+        "correo": "elena.vp@outlook.com",
+        "direccion": "Santa Tecla, La Libertad",
+        "fecha_nacimiento": "1955-11-30",
+        "doc": { "tipo": "DUI", "valor": "00987654-2" },
+        "antecedentes_familiares": [{ "nombre": "Alzheimer", "aplica": true }],
+        "antecedentes_patologicos": [
+          { "tipo": "artritis", "valor": true },
+          { "tipo": "hipotiroidismo", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Sedentaria"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_roberto_004",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Roberto Alexander",
+        "apellidos": "Zelaya Rivas",
+        "telefono": "7555-9999",
+        "correo": "roberto.zelaya@gmail.com",
+        "direccion": "San Miguel, El Salvador",
+        "fecha_nacimiento": "2001-03-12",
+        "doc": { "tipo": "DUI", "valor": "05432109-7" },
+        "antecedentes_familiares": [],
+        "antecedentes_patologicos": [
+          { "tipo": "rinitis alérgica", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": true,
+          "toma": true,
+          "otros": "Deportista ocasional"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_sofia_005",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Sofía Valentina",
+        "apellidos": "Martínez Guerra",
+        "telefono": "7888-4444",
+        "doc": { "tipo": "MENOR_EDAD", "valor": "PN-2020-456" },
+        "fecha_nacimiento": "2020-07-22",
+        "condiciones_especiales": "Intolerancia a la lactosa",
+        "antecedentes_familiares": [{ "nombre": "Asma", "aplica": true }],
+        "antecedentes_patologicos": [
+          { "tipo": "dermatitis atópica", "valor": true }
+        ]
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_fernando_006",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Fernando José",
+        "apellidos": "Orellana Paz",
+        "telefono": "7999-1122",
+        "correo": "fer_paz92@gmail.com",
+        "direccion": "Colonia Escalón, San Salvador",
+        "fecha_nacimiento": "1992-04-10",
+        "doc": { "tipo": "DUI", "valor": "04589632-1" },
+        "antecedentes_familiares": [
+          { "nombre": "Cáncer de colon", "aplica": true }
+        ],
+        "antecedentes_patologicos": [{ "tipo": "gastritis", "valor": true }],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": true,
+          "otros": "Estrés laboral alto"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_marta_007",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Marta Julia",
+        "apellidos": "Solórzano",
+        "telefono": "7021-4567",
+        "correo": "marta.sol@yahoo.com",
+        "direccion": "Antiguo Cuscatlán, La Libertad",
+        "fecha_nacimiento": "1968-12-05",
+        "doc": { "tipo": "DUI", "valor": "01827364-5" },
+        "antecedentes_familiares": [
+          { "nombre": "Hipertensión", "aplica": true }
+        ],
+        "antecedentes_patologicos": [
+          { "tipo": "hipotiroidismo", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Yoga regular"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_kevin_008",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Kevin Stanley",
+        "apellidos": "Guzmán Flores",
+        "telefono": "6100-8888",
+        "correo": "kevin.guzman@estudiante.edu.sv",
+        "direccion": "Soyapango, San Salvador",
+        "fecha_nacimiento": "2005-09-18",
+        "doc": { "tipo": "DUI", "valor": "06998877-4" },
+        "antecedentes_familiares": [],
+        "antecedentes_patologicos": [{ "tipo": "miopía", "valor": true }],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Ninguno"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_adriana_009",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Adriana Ivette",
+        "apellidos": "Peña",
+        "telefono": "7755-4433",
+        "correo": "adri_pe_99@outlook.com",
+        "direccion": "Santa Ana, El Salvador",
+        "fecha_nacimiento": "1999-01-25",
+        "doc": { "tipo": "DUI", "valor": "05123487-9" },
+        "antecedentes_familiares": [
+          { "nombre": "Diabetes Tipo 2", "aplica": true }
+        ],
+        "antecedentes_patologicos": [
+          { "tipo": "ovario poliquístico", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Vegetariana"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_ricardo_010",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Ricardo Ernesto",
+        "apellidos": "Meléndez Castro",
+        "telefono": "7812-3456",
+        "correo": "rem_castro@gmail.com",
+        "direccion": "Lourdes, Colón",
+        "fecha_nacimiento": "1985-06-30",
+        "doc": { "tipo": "DUI", "valor": "03142536-0" },
+        "antecedentes_familiares": [{ "nombre": "Obesidad", "aplica": true }],
+        "antecedentes_patologicos": [
+          { "tipo": "hiperlipidemia", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": true,
+          "toma": true,
+          "otros": "Vida sedentaria"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_mateo_011",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Masculino",
+        "nombres": "Mateo Alejandro",
+        "apellidos": "Reyes",
+        "telefono": "7070-1234",
+        "doc": { "tipo": "MENOR_EDAD", "valor": "PN-2023-999" },
+        "fecha_nacimiento": "2023-02-14",
+        "condiciones_especiales": "Control de niño sano",
+        "antecedentes_familiares": [],
+        "antecedentes_patologicos": [{ "tipo": "reflujo", "valor": true }]
+      }
+    },
+    {
+      "doc": {
+        "_id": "paciente_claudia_012",
+        "coleccion": "exmed-pacientes",
+        "sexo": "Femenino",
+        "nombres": "Claudia Vanessa",
+        "apellidos": "López Henríquez",
+        "telefono": "7444-5555",
+        "correo": "vanessa.henriquez@empresa.com",
+        "direccion": "Ciudad Merliot, La Libertad",
+        "fecha_nacimiento": "1978-08-12",
+        "doc": { "tipo": "DUI", "valor": "02255887-3" },
+        "antecedentes_familiares": [{ "nombre": "Glaucoma", "aplica": true }],
+        "antecedentes_patologicos": [
+          { "tipo": "migraña crónica", "valor": true }
+        ],
+        "antecedentes_no_patologicos": {
+          "fuma": false,
+          "toma": false,
+          "otros": "Alergia al polen"
+        }
+      }
+    }
+  ]
+}

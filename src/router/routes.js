@@ -18,7 +18,7 @@ const routes = [
   {//administar pacientes
     path: "/expediente/pacientes",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/PacientesList.vue") }],
+    children: [{ path: "", component: () => import("pages/PacientesView.vue") }],
   },
   {//administar recetas
     path: "/expediente/recetas",

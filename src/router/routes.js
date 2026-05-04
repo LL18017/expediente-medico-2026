@@ -55,6 +55,11 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("src/pages/PoliticasPrivacidadView.vue") }],
   },
+  {
+    path: "/expediente/registro-consulta",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("src/pages/RegistroConsultaView.vue") }],
+  },
 
   {
     path: "/:catchAll(.*)*",

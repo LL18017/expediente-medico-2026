@@ -64,11 +64,11 @@ const { politicas } = usePoliticas()
         </div>
       </div>
     </div>
-    <q-footer class="bg-white q-pa-sm shadow-up-3">
+    <!-- <q-footer class="bg-white q-pa-sm shadow-up-3">
       <div class="q-mx-auto" style="max-width: 600px;">
         <q-btn unelevated label="Entendido y Acepto" color="teal-7" rounded class="full-width text-weight-bold"
           icon-right="arrow_forward" />
       </div>
-    </q-footer>
+    </q-footer> -->
   </q-page>
 </template>

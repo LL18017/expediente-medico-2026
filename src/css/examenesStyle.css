@@ -146,17 +146,31 @@
   opacity: 0;
   transform: scale(0.98); /* Transición de escala en lugar de desplazamiento vertical */
 }
-
 /* =========================================
-   MEDIA QUERIES (Responsividad)
+   MEDIA QUERIES (Responsividad para Móviles y Tablets)
 ========================================= */
 
-@media (max-width: 599px) {
-  .columna-izquierda {
-    height: auto;
-    min-height: 400px;
+@media (max-width: 1023px) {
+  /* 1. Forzamos a la página a crecer y permitir scroll nativo */
+  .q-page {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important; 
+    padding-bottom: 40px !important; /* Espacio extra al final para que no quede pegado */
   }
 
+  /* 2. Soltamos la altura fija de la columna izquierda */
+  .columna-izquierda {
+    height: auto !important;
+    min-height: unset !important;
+  }
+
+  /* 3. Limitamos el alto de la lista para que no sea infinita en el móvil */
+  .lista-pacientes {
+    max-height: 250px;
+  }
+
+  /* 4. Ajustes visuales de la cabecera del paciente */
   .profile-header {
     flex-direction: column;
     text-align: center;

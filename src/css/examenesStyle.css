@@ -1,0 +1,180 @@
+/* =========================================
+   COLUMNA IZQUIERDA (Búsqueda y Menú)
+========================================= */
+
+.columna-izquierda {
+  /* En lugar de 55vh, usamos un cálculo dinámico para que llene la pantalla sin desbordarse */
+  height: calc(100vh - 100px); 
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sombra más suave y moderna */
+.shadow-soft {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Lista de pacientes con scrollbar profesional */
+.lista-pacientes {
+  flex: 1;              
+  overflow-y: auto;
+  min-height: 0;
+  margin-bottom: 16px;
+  border-color: #e0e4e8;
+}
+
+/* Scrollbar personalizado estilo Mac/Dashboard */
+.lista-pacientes::-webkit-scrollbar {
+  width: 6px;
+}
+.lista-pacientes::-webkit-scrollbar-track {
+  background: transparent;
+}
+.lista-pacientes::-webkit-scrollbar-thumb {
+  background-color: #b2dfdb;
+  border-radius: 10px;
+}
+.lista-pacientes::-webkit-scrollbar-thumb:hover {
+  background-color: #80cbc4;
+}
+
+.paciente-item:hover {
+  background-color: #f2f9f9;
+}
+
+/* Estados Vacíos */
+.empty-state, .empty-state-form {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.empty-img, .empty-img-form {
+  width: 140px;
+  margin: 0 auto;
+  opacity: 0.85;
+  transition: transform 0.3s ease;
+}
+
+.empty-img:hover, .empty-img-form:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   MENÚ INFERIOR
+========================================= */
+
+.menu-medico-container {
+  margin-top: auto;
+  background-color: #f4f8f8; /* Tono gris-menta muy sutil */
+  border-radius: 16px;
+  padding: 8px;
+  border: 1px solid #e0e8e7;
+}
+
+.text-label {
+  color: #00796B !important; /* Menta oscuro para contraste */
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.menu-item .q-icon {
+  color: #00897B !important;
+}
+
+.menu-item {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  margin-bottom: 2px;
+}
+
+.menu-item:hover {
+  background-color: #e0f2f1; /* Menta claro */
+  transform: translateX(4px); /* Pequeño salto a la derecha al hacer hover */
+}
+
+/* =========================================
+   COLUMNA DERECHA (Perfil del Paciente)
+========================================= */
+
+.paciente-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e0e4e8;
+}
+
+/* Degradado Menta/Teal en armonía con Navbar */
+.profile-header {
+  background: linear-gradient(135deg, #00897B 0%, #4DB6AC 100%);
+}
+
+.opacity-80 {
+  opacity: 0.85;
+}
+
+/* Tarjetas de datos (Cédula, Teléfono, etc.) */
+.info-item {
+  background-color: #f9fbfb;
+  border: 1px solid #edf2f2;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.info-item:hover {
+  background-color: #ffffff;
+  border-color: #b2dfdb; 
+  box-shadow: 0 6px 16px rgba(0, 137, 123, 0.08); 
+  transform: translateY(-3px);
+}
+
+/* Estado sin paciente a la derecha */
+.empty-state-card {
+  border-radius: 16px;
+  min-height: 450px;
+  background-color: #f9fbfb;
+  border: 2px dashed #b2dfdb; /* Borde punteado en tono menta */
+}
+
+/* Transiciones fluidas */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: scale(0.98); /* Transición de escala en lugar de desplazamiento vertical */
+}
+
+/* =========================================
+   MEDIA QUERIES (Responsividad)
+========================================= */
+
+@media (max-width: 599px) {
+  .columna-izquierda {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 16px;
+  }
+  
+  .profile-header .header-text {
+    margin-left: 0;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    justify-content: center;
+  }
+
+  .profile-header .opacity-80 {
+    justify-content: center;
+  }
+  
+  .btn-expediente {
+    width: 100%;
+  }
+}

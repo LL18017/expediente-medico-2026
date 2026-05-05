@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-const user = ref(null) // 🔥 estado global (singleton)
+const user = ref(null) // estado global (singleton)
 
 export function userAuth() {
 

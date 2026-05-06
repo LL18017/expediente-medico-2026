@@ -1,8 +1,8 @@
 <template>
-  <div class="row q-gutter-sm justify-center">
+  <div class="row q-gutter-md justify-center">
     <q-input v-for="(digit, index) in 4" :key="index" v-model="pinArray[index]" :ref="el => inputRefs[index] = el"
-      outlined dense maxlength="1" mask="#" unmasked-value class="pin-input" type="tel"
-      input-class="text-center text-h6" @update:model-value="onInput(index)" @keydown.delete="onDelete(index)" />
+      outlined dense maxlength="1" mask="#" unmasked-value class="pin-input" bg-color="white" color="teal" type="tel"
+      input-class="text-center text-h5 text-weight-bold text-dark" @update:model-value="onInput(index)" @keydown.delete="onDelete(index)" />
   </div>
 </template>
 

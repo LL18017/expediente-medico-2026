@@ -1,13 +1,14 @@
 <template>
-  <q-page class="bg-medical-gradient relative-position overflow-hidden flex flex-center">
+  <q-page class="bg-medical-gradient relative-position overflow-hidden"
+    :class="{ 'flex flex-center': $q.screen.gt.sm }">
 
     <!-- FONDO CURVO Paso 1-->
     <div v-if="$q.screen.gt.sm && step === 1" class="absolute bg-white animate__animated animate__fadeIn"
       style="width: 1500px; height: 1500px; border-radius: 50%; right: -650px; top: 50%; transform: translateY(-50%); z-index: 0; box-shadow: -20px 0 50px rgba(0,168,150,0.05);">
     </div>
 
-    <!-- FONDO CURVO Paso 2-->
-    <div v-if="$q.screen.gt.sm && step === 2" class="absolute bg-white animate__animated animate__fadeIn"
+    <!-- FONDO CURVO Paso 2 en adelante-->
+    <div v-if="$q.screen.gt.sm && step >= 2" class="absolute bg-white animate__animated animate__fadeIn"
       style="width: 1500px; height: 1500px; border-radius: 50%; left: -650px; top: 50%; transform: translateY(-50%); z-index: 0; box-shadow: 20px 0 50px rgba(0,168,150,0.05);">
     </div>
 
@@ -47,7 +48,7 @@
           </div>
 
           <!-- MÓVIL -->
-          <div v-else class="text-center animate__animated animate__fadeIn column items-center q-pt-sm">
+          <div v-else class="text-center animate__animated animate__fadeIn column items-center q-pt-xl q-mt-xl">
             <!-- Escudo Médico -->
             <div class="row items-center justify-center q-mb-md full-width" style="max-width: 300px;">
               <q-separator class="col-4" color="teal-3" size="2px" />
@@ -85,11 +86,11 @@
           <div v-if="$q.screen.gt.sm" class="row full-height animate__animated animate__fadeIn"
             style="min-height: 80vh;">
 
-            <div class="absolute-top-left q-pa-lg" style="z-index: 10;">
-              <q-btn flat no-caps color="teal" @click="$refs.stepper.previous()">
+            <div class="absolute-top-left q-pa-xl" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="$refs.stepper.previous()" class="q-px-sm">
                 <div class="row items-center">
-                  <q-icon name="arrow_back_ios_new" size="xl" class="q-mr-sm" />
-                  <span class="text-h5 text-weight-medium">Volver</span>
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-h6 text-weight-medium">Volver</span>
                 </div>
               </q-btn>
             </div>
@@ -165,13 +166,18 @@
           </div>
 
           <!--MÓVIL-->
-          <div v-else class="animate__animated animate__fadeIn column items-center full-width q-pb-xl">
-            <div class="row full-width items-center q-mb-sm">
-              <q-btn flat round icon="arrow_back_ios_new" color="teal" size="md" @click="$refs.stepper.previous()" />
-              <q-space />
+          <div v-else
+            class="animate__animated animate__fadeIn column items-center full-width q-pb-xl relative-position">
+            <div class="absolute-top-left q-pa-md" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="$refs.stepper.previous()" class="q-px-sm">
+                <div class="row items-center">
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-subtitle1 text-weight-medium">Volver</span>
+                </div>
+              </q-btn>
             </div>
 
-            <div class="q-mb-sm"> <!--componente -->
+            <div class="q-mb-sm q-mt-xl"> <!--componente -->
               <AvatarPicker v-model="perfil.foto" />
             </div>
 
@@ -217,6 +223,189 @@
             </div>
           </div>
         </q-step>
+        <!-- PASO 3: Definición de PIN -->
+        <q-step :name="3" :done="step > 3">
+          <!-- DESKTOP -->
+          <div v-if="$q.screen.gt.sm" class="row full-height animate__animated animate__fadeIn"
+            style="min-height: 80vh;">
+
+            <div class="absolute-top-left q-pa-xl" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="retrocederPin" class="q-px-sm">
+                <div class="row items-center">
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-h6 text-weight-medium">Volver</span>
+                </div>
+              </q-btn>
+            </div>
+
+            <div class="col-12 flex column justify-center items-center relative-position" style="z-index: 1;">
+              <div class="text-center" style="max-width: 450px; width: 100%;">
+
+                <div class="flex flex-center q-mb-md">
+                  <q-avatar size="80px" color="teal-1" text-color="teal">
+                    <q-icon name="lock_outline" size="40px" />
+                  </q-avatar>
+                </div>
+
+                <div class="text-h3 text-dark q-mb-sm text-weight-bold" style="font-family: 'Quicksand', sans-serif;">
+                  {{ confirmandoPin ? 'Confirmar PIN' : 'Crear PIN' }}
+                </div>
+
+                <div class="flex flex-center q-mb-md">
+                  <q-separator color="teal" size="3px" style="width: 50px; border-radius: 2px;" />
+                </div>
+
+                <div class="text-subtitle1 text-grey-7 q-mb-xl"
+                  style="line-height: 1.4; max-width: 320px; margin: 0 auto;">
+                  <span v-if="confirmandoPin">
+                    Ingresa nuevamente el PIN para verificarlo.
+                  </span>
+                  <span v-else>
+                    Este PIN será requerido cada vez que abras la aplicación.
+                  </span>
+                </div>
+
+                <div class="flex flex-center q-mb-lg">
+                  <PinInput ref="pinInputRef" @complete="manejarIngresoPin" />
+                </div>
+
+                <div v-if="errorPin" class="text-negative text-subtitle2 q-mt-md animate__animated animate__shakeX">
+                  {{ errorPin }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MÓVIL -->
+          <div v-else class="animate__animated animate__fadeIn column items-center full-width q-pb-xl relative-position"
+            style="min-height: 60vh; justify-content: center;">
+            <div class="absolute-top-left q-pa-md" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="retrocederPin" class="q-px-sm">
+                <div class="row items-center">
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-subtitle1 text-weight-medium">Volver</span>
+                </div>
+              </q-btn>
+            </div>
+
+            <div class="text-center full-width q-mt-xl">
+              <div class="flex flex-center q-mb-md">
+                <q-avatar size="64px" color="teal-1" text-color="teal">
+                  <q-icon name="lock_outline" size="32px" />
+                </q-avatar>
+              </div>
+
+              <div class="text-h4 text-dark q-mb-sm text-weight-bold" style="font-family: 'Quicksand', sans-serif;">
+                {{ confirmandoPin ? 'Confirmar PIN' : 'Crear PIN' }}
+              </div>
+
+              <div class="flex flex-center q-mb-md">
+                <q-separator color="teal" size="3px" style="width: 40px; border-radius: 2px;" />
+              </div>
+
+              <div class="text-body1 text-grey-7 q-mb-xl q-px-md"
+                style="line-height: 1.4; max-width: 300px; margin: 0 auto;">
+                <span v-if="confirmandoPin">
+                  Ingresa nuevamente el PIN para verificarlo.
+                </span>
+                <span v-else>
+                  Este PIN será requerido cada vez que abras la aplicación.
+                </span>
+              </div>
+
+              <div class="flex flex-center q-mb-lg">
+                <PinInput ref="pinInputRef" @complete="manejarIngresoPin" />
+              </div>
+
+              <div v-if="errorPin" class="text-negative text-body2 q-mt-md animate__animated animate__shakeX">
+                {{ errorPin }}
+              </div>
+            </div>
+          </div>
+        </q-step>
+
+        <!-- PASO 4: Respaldo -->
+        <q-step :name="4">
+          <!-- DESKTOP -->
+          <div v-if="$q.screen.gt.sm" class="row full-height animate__animated animate__fadeIn"
+            style="min-height: 80vh;">
+
+            <div class="absolute-top-left q-pa-xl" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="$refs.stepper.previous()" class="q-px-sm">
+                <div class="row items-center">
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-h6 text-weight-medium">Volver</span>
+                </div>
+              </q-btn>
+            </div>
+
+            <div class="col-md-5 flex column justify-center items-start q-pl-xl relative-position"
+              style="padding-left: 100px; z-index: 1;">
+              <div class="text-h3 text-dark q-mb-md" style="font-family: 'Quicksand', sans-serif;">
+                Respaldo de Seguridad
+              </div>
+              <div class="text-subtitle1 text-grey-7 q-mb-xl" style="line-height: 1.4; max-width: 350px;">
+                En caso de olvidar tu PIN, estas preguntas te permitirán recuperar el acceso de forma local de manera
+                segura.
+              </div>
+            </div>
+
+            <div class="col-md-7 flex column justify-center items-center relative-position" style="z-index: 1;">
+              <div style="width: 100%; max-width: 500px;">
+                <div v-for="(item, index) in preguntasRespaldo" :key="index" class="q-mb-lg">
+                  <div class="text-teal text-weight-medium q-mb-sm">Pregunta {{ index + 1 }}</div>
+                  <q-select v-model="item.pregunta" :options="opcionesPreguntas" label="Selecciona una pregunta"
+                    outlined class="bg-white q-mb-sm custom-input" color="teal" emit-value map-options dense
+                    style="border-radius: 8px;" />
+                  <q-input v-model="item.respuesta" label="Tu respuesta" outlined class="bg-white custom-input"
+                    color="teal" dense style="border-radius: 8px;" />
+                </div>
+
+                <q-btn @click="finalizarRegistro" color="teal" label="Finalizar y Entrar"
+                  class="full-width text-weight-bold q-mt-md" size="lg" rounded no-caps
+                  style="box-shadow: 0 4px 15px rgba(0,168,150,0.4);" :disable="!preguntasValidas" />
+              </div>
+            </div>
+          </div>
+
+          <!-- MÓVIL -->
+          <div v-else
+            class="animate__animated animate__fadeIn column items-center full-width q-pb-xl relative-position">
+            <div class="absolute-top-left q-pa-md" style="z-index: 10;">
+              <q-btn flat no-caps color="teal" @click="$refs.stepper.previous()" class="q-px-sm">
+                <div class="row items-center">
+                  <q-icon name="arrow_back_ios_new" size="sm" class="q-mr-sm" />
+                  <span class="text-subtitle1 text-weight-medium">Volver</span>
+                </div>
+              </q-btn>
+            </div>
+
+            <div class="text-h5 text-dark q-mb-sm text-weight-medium text-center q-mt-xl"
+              style="font-family: 'Quicksand', sans-serif;">
+              Respaldo
+            </div>
+
+            <div class="text-body2 text-grey-7 q-mb-lg text-center q-px-md" style="line-height: 1.4;">
+              En caso de olvidar tu PIN, estas preguntas te permitirán recuperar el acceso.
+            </div>
+
+            <div class="full-width q-px-sm">
+              <div v-for="(item, index) in preguntasRespaldo" :key="index" class="q-mb-md bg-white q-pa-md shadow-1"
+                style="border-radius: 12px;">
+                <q-select v-model="item.pregunta" :options="opcionesPreguntas" label="Selecciona una pregunta" outlined
+                  class="q-mb-sm custom-input" color="teal" emit-value map-options dense />
+                <q-input v-model="item.respuesta" label="Tu respuesta" outlined class="custom-input" color="teal"
+                  dense />
+              </div>
+            </div>
+
+            <div class="full-width flex justify-center q-mt-md q-mb-xl q-px-sm">
+              <q-btn @click="finalizarRegistro" color="teal" label="Finalizar y Entrar"
+                class="text-weight-bold full-width" size="lg" rounded no-caps
+                style="box-shadow: 0 4px 15px rgba(0,168,150,0.4);" :disable="!preguntasValidas" />
+            </div>
+          </div>
+        </q-step>
       </q-stepper>
     </div>
   </q-page>
@@ -225,27 +414,31 @@
 <script setup>
 import { useAuthRegistro } from 'src/services/auth/useAuthRegistro';
 import AvatarPicker from 'src/components/AvatarPicker.vue'; //Componente para el perfil
-const { step, stepper, perfil, validarPerfil } = useAuthRegistro();
+import PinInput from 'src/components/auth/PinInput.vue';
 
+const {
+  step,
+  stepper,
+  perfil,
+  validarPerfil,
+  pinInputRef,
+  confirmandoPin,
+  errorPin,
+  manejarIngresoPin,
+  retrocederPin,
+  opcionesPreguntas,
+  preguntasRespaldo,
+  preguntasValidas,
+  finalizarRegistro
+} = useAuthRegistro();
 </script>
 
 <style scoped>
-/* Fondo general colores médicos */
 .bg-medical-gradient {
   background: linear-gradient(135deg, #f5f7fa 0%, #e8f5f5 100%);
   min-height: 100vh;
 }
 
-/* Efecto Glassmorphism Premium */
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px 0 rgba(0, 168, 150, 0.1) !important;
-}
-
-/* Ajustes sutiles para el Stepper dentro del Glass */
 :deep(.q-stepper__header) {
   display: none !important;
 }
@@ -258,12 +451,10 @@ const { step, stepper, perfil, validarPerfil } = useAuthRegistro();
   padding-top: 4px;
 }
 
-/* Estilo para los inputs similares al diseño nativo */
 :deep(.custom-input .q-field__control) {
   border-radius: 12px;
 }
 
-/* Oculta los bordes por defecto de Quasar */
 :deep(.custom-input .q-field__control:before) {
   border: none !important;
 }
@@ -274,10 +465,7 @@ const { step, stepper, perfil, validarPerfil } = useAuthRegistro();
 
 :deep(input::placeholder) {
   color: #b0b0b0 !important;
-  /* Un gris mucho más claro */
   opacity: 0.7 !important;
-  /* Reduce la intensidad */
   font-weight: 300;
-  /* Lo hace ver más fino */
 }
 </style>

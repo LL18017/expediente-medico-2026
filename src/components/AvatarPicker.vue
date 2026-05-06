@@ -20,7 +20,7 @@
  */
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { useFileUpload } from 'src/composable/useFileUpload';
+import { useFileUpload } from 'src/composable/useFileUpload'; //Primero se importa el archivo
 
 const props = defineProps({
   modelValue: {
@@ -39,7 +39,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 const $q = useQuasar();
-const { openFileDialog, fileToBase64, isLoading } = useFileUpload();
+const { openFileDialog, fileToBase64, isLoading } = useFileUpload(); //Se extraen las funciones
 
 const currentSize = computed(() => {
   return $q.screen.gt.sm ? props.desktopSize : props.mobileSize;

@@ -53,7 +53,7 @@ export function useFileUpload() {
   return {
     isLoading,
     error,
-    openFileDialog,
+    openFileDialog, //Funcion para cargar archivos
     fileToBase64
   };
 }

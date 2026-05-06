@@ -1,8 +1,21 @@
 const routes = [
+
   {
-    path: "/",
+    path: "/login",
     component: () => import("layouts/AuthLayout.vue"),
     children: [{ path: "", component: () => import("pages/auth/LoginView.vue") }],
+  },
+
+  {//dashboard Boorrar
+    path: "/",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/IndexView.vue") }],
+  },
+
+  {
+    path: "/setup",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [{ path: "", component: () => import("pages/auth/RegistroView.vue") }],
   },
 
   {//dashboard

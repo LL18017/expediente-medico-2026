@@ -60,6 +60,11 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("src/pages/RegistroConsultaView.vue") }],
   },
+  {
+    path: "/expediente/backup",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("src/pages/backupView.vue") }],
+  },
 
   {
     path: "/:catchAll(.*)*",

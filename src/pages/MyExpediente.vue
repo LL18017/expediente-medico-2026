@@ -191,7 +191,7 @@
         <q-card-section class="bg-primary text-white">
           <div class="row items-center justify-between">
             <div class="text-h6">Consultas Médicas</div>
-            <q-btn flat color="white" icon="add" label="Nueva Consulta" @click="openConsultaDialog" />
+            <q-btn flat color="white" icon="add" label="Nueva Consulta" @click="irARegistroConsulta" />
           </div>
         </q-card-section>
 
@@ -468,11 +468,12 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Notify } from 'quasar';
 import logo from "src/assets/logo.png";
 
 const route = useRoute();
+const router = useRouter();
 
 const paciente = ref({});
 const consultas = ref([]);
@@ -737,11 +738,8 @@ const guardarConsultas = () => {
   localStorage.setItem(`consultas_${paciente.value._id}`, JSON.stringify(consultas.value));
 };
 
-const openConsultaDialog = () => {
-  editandoConsulta.value = false;
-  resetConsultaForm();
-  showConsultaDialog.value = true;
-};
+
+
 
 const editarConsulta = (consulta) => {
   editandoConsulta.value = true;
@@ -856,6 +854,15 @@ onMounted(() => {
     console.warn("No se encontraron datos del paciente");
   }
 });
+
+const irARegistroConsulta = () => {
+  router.push({
+    path: '/expediente/registro-consulta',
+    query: {
+      paciente: JSON.stringify(paciente.value)
+    }
+  });
+};
 </script>
 <style scoped>
 /* Mantén todos tus estilos existentes aquí */

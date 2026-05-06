@@ -1,0 +1,203 @@
+[
+  {
+    "_id": "c001",
+    "fecha": "2026-04-29T09:00:00Z",
+    "paciente": {
+      "id": "p001",
+      "nombre": "Ana Maria",
+      "apellidos": "Gonzalez Rivas",
+      "doc": { "tipo": "DUI", "valor": "04859632-1" },
+      "fecha_nacimiento": "1985-03-12"
+    },
+    "motivo": "Control de hipertensión arterial",
+    "diagnostico": "Hipertensión esencial primaria",
+    "peso": 68.2,
+    "estatura": 1.62,
+    "presionarterial": "145/95",
+    "temperatura": 36.6,
+    "recetas": [
+      { "medicamento": "Enalapril 10mg", "dosis": "1 tableta", "frecuencia": "cada 12 horas", "via": "Oral", "durante": "30 dias", "cantidad": 60, "observaciones": "Control mensual" }
+    ]
+  },
+  {
+    "_id": "c002",
+    "fecha": "2026-04-28T15:30:00Z",
+    "paciente": {
+      "id": "p002",
+      "nombre": "Roberto",
+      "apellidos": "Sosa Mendez",
+      "doc": { "tipo": "DUI", "valor": "01524368-9" },
+      "fecha_nacimiento": "1970-11-20"
+    },
+    "motivo": "Dolor lumbar agudo tras esfuerzo físico",
+    "diagnostico": "Lumbalgia mecánica",
+    "peso": 85.0,
+    "estatura": 1.78,
+    "presionarterial": "120/80",
+    "temperatura": 36.5,
+    "recetas": [
+      { "medicamento": "Diclofenaco 75mg", "dosis": "1 ampolla IM", "frecuencia": "única dosis", "via": "Intramuscular", "durante": "1 dia", "cantidad": 1, "observaciones": "Aplicar en clínica" },
+      { "medicamento": "Metocarbamol 500mg", "dosis": "1 tableta", "frecuencia": "cada 8 horas", "via": "Oral", "durante": "5 dias", "cantidad": 15, "observaciones": "Evitar esfuerzos" }
+    ]
+  },
+  {
+    "_id": "c003",
+    "fecha": "2026-04-28T10:15:00Z",
+    "paciente": {
+      "id": "p003",
+      "nombre": "Lucia",
+      "apellidos": "Torres Alfaro",
+      "doc": { "tipo": "DUI", "valor": "05126394-2" },
+      "fecha_nacimiento": "1995-07-05"
+    },
+    "motivo": "Infección urinaria y ardor",
+    "diagnostico": "Cistitis aguda no complicada",
+    "peso": 55.4,
+    "estatura": 1.58,
+    "presionarterial": "110/70",
+    "temperatura": 37.8,
+    "recetas": [
+      { "medicamento": "Ciprofloxacina 500mg", "dosis": "1 tableta", "frecuencia": "cada 12 horas", "via": "Oral", "durante": "7 dias", "cantidad": 14, "observaciones": "Tomar abundante agua" }
+    ]
+  },
+  {
+    "_id": "c004",
+    "fecha": "2026-04-27T17:00:00Z",
+    "paciente": {
+      "id": "p004",
+      "nombre": "Elena",
+      "apellidos": "Vásquez Jovel",
+      "doc": { "tipo": "DUI", "valor": "02365418-7" },
+      "fecha_nacimiento": "2010-01-15"
+    },
+    "motivo": "Revisión por asma bronquial",
+    "diagnostico": "Asma persistente moderada",
+    "peso": 42.0,
+    "estatura": 1.45,
+    "presionarterial": "105/65",
+    "temperatura": 36.7,
+    "recetas": [
+      { "medicamento": "Salbutamol Inhalador", "dosis": "2 pufs", "frecuencia": "cada 6 horas", "via": "Inhalatoria", "durante": "15 dias", "cantidad": 1, "observaciones": "Uso con espaciador" }
+    ]
+  },
+  {
+    "_id": "c005",
+    "fecha": "2026-04-27T08:45:00Z",
+    "paciente": {
+      "id": "p005",
+      "nombre": "Miguel",
+      "apellidos": "Estrada Rivera",
+      "doc": { "tipo": "DUI", "valor": "00985236-4" },
+      "fecha_nacimiento": "1962-09-30"
+    },
+    "motivo": "Control de Diabetes Tipo 2",
+    "diagnostico": "Diabetes mellitus no insulinodependiente",
+    "peso": 92.5,
+    "estatura": 1.70,
+    "presionarterial": "130/85",
+    "temperatura": 36.4,
+    "recetas": [
+      { "medicamento": "Metformina 850mg", "dosis": "1 tableta", "frecuencia": "con la cena", "via": "Oral", "durante": "90 dias", "cantidad": 90, "observaciones": "Mantener dieta baja en azúcares" }
+    ]
+  },
+  {
+    "_id": "c006",
+    "fecha": "2026-04-26T11:20:00Z",
+    "paciente": {
+      "id": "p006",
+      "nombre": "Sofia",
+      "apellidos": "Mejía Solís",
+      "doc": { "tipo": "DUI", "valor": "06412587-3" },
+      "fecha_nacimiento": "1992-12-05"
+    },
+    "motivo": "Gastritis y reflujo",
+    "diagnostico": "Gastritis crónica erosiva",
+    "peso": 60.1,
+    "estatura": 1.65,
+    "presionarterial": "115/75",
+    "temperatura": 36.8,
+    "recetas": [
+      { "medicamento": "Esomeprazol 40mg", "dosis": "1 cápsula", "frecuencia": "ayunas", "via": "Oral", "durante": "28 dias", "cantidad": 28, "observaciones": "Evitar irritantes" }
+    ]
+  },
+  {
+    "_id": "c007",
+    "fecha": "2026-04-25T14:10:00Z",
+    "paciente": {
+      "id": "p007",
+      "nombre": "Jorge",
+      "apellidos": "Henriquez Paz",
+      "doc": { "tipo": "DUI", "valor": "03142536-1" },
+      "fecha_nacimiento": "1988-02-28"
+    },
+    "motivo": "Conjuntivitis ojo derecho",
+    "diagnostico": "Conjuntivitis bacteriana",
+    "peso": 78.0,
+    "estatura": 1.74,
+    "presionarterial": "120/80",
+    "temperatura": 37.1,
+    "recetas": [
+      { "medicamento": "Tobramicina Gotas", "dosis": "1 gota", "frecuencia": "cada 4 horas", "via": "Oftálmica", "durante": "7 dias", "cantidad": 1, "observaciones": "Lavar manos antes de aplicar" }
+    ]
+  },
+  {
+    "_id": "c008",
+    "fecha": "2026-04-24T16:45:00Z",
+    "paciente": {
+      "id": "p008",
+      "nombre": "Beatriz",
+      "apellidos": "Luna Flores",
+      "doc": { "tipo": "DUI", "valor": "05874123-5" },
+      "fecha_nacimiento": "2003-05-18"
+    },
+    "motivo": "Alergia cutánea",
+    "diagnostico": "Dermatitis por contacto",
+    "peso": 54.0,
+    "estatura": 1.60,
+    "presionarterial": "110/70",
+    "temperatura": 36.5,
+    "recetas": [
+      { "medicamento": "Loratadina 10mg", "dosis": "1 tableta", "frecuencia": "cada noche", "via": "Oral", "durante": "10 dias", "cantidad": 10, "observaciones": "Puede causar somnolencia leve" }
+    ]
+  },
+  {
+    "_id": "c009",
+    "fecha": "2026-04-23T09:30:00Z",
+    "paciente": {
+      "id": "p009",
+      "nombre": "Ricardo",
+      "apellidos": "Pineda Marín",
+      "doc": { "tipo": "DUI", "valor": "00125478-2" },
+      "fecha_nacimiento": "1955-08-10"
+    },
+    "motivo": "Dolor precordial leve",
+    "diagnostico": "Angina de pecho estable",
+    "peso": 88.0,
+    "estatura": 1.72,
+    "presionarterial": "140/90",
+    "temperatura": 36.6,
+    "recetas": [
+      { "medicamento": "Aspirina 100mg", "dosis": "1 tableta", "frecuencia": "diaria", "via": "Oral", "durante": "Indefinido", "cantidad": 100, "observaciones": "Referido a cardiología" }
+    ]
+  },
+  {
+    "_id": "c010",
+    "fecha": "2026-04-20T10:30:00Z",
+    "paciente": {
+      "id": "p010",
+      "nombre": "Carlos Chavez",
+      "apellidos": "Perez",
+      "doc": { "tipo": "DUI", "valor": "01234567-8" },
+      "fecha_nacimiento": "1998-05-15"
+    },
+    "motivo": "Fiebre persistente",
+    "diagnostico": "Faringoamigdalitis bacteriana",
+    "peso": 71.5,
+    "estatura": 1.71,
+    "presionarterial": "110/70",
+    "temperatura": 38.5,
+    "recetas": [
+      { "medicamento": "Amoxicilina 500mg", "dosis": "1 tableta", "frecuencia": "cada 8 horas", "via": "Oral", "durante": "7 dias", "cantidad": 21, "observaciones": "Completar el tratamiento" }
+    ]
+  }
+]

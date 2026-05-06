@@ -14,16 +14,18 @@
     "postinstall": "quasar prepare"
   },
   "dependencies": {
+    "@quasar/cli": "^2.5.0",
     "@quasar/extras": "^1.16.4",
     "axios": "^1.13.6",
-    "pinia": "^3.0.4",
+    "chart.js": "^4.5.1",
+    "leaflet": "^1.9.4",
     "quasar": "^2.16.0",
     "vue": "^3.5.22",
-    "vue-router": "^5.0.3"
+    "vue-router": "4.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@quasar/app-vite": "^2.5.1",
+    "@quasar/app-vite": "2.4.0",
     "autoprefixer": "^10.4.27",
     "eslint": "^10.0.3",
     "eslint-plugin-vue": "^10.8.0",
@@ -37,5 +39,6 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1",
     "pnpm": ">= 10.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.33.1+sha512.05ba3c1d5d1c18f68df06470d74055e62d41fc110a0c660db1b2dfb2785327f04cf0f68345d4609bc52089e7fa0343c31593b2f9594e2c5d5da426230acc9820"
 }

@@ -1,186 +1,334 @@
 <template>
-  <q-page class="q-pa-md">
-    <!-- HEADER -->
-    <div class="row items-center justify-between q-mb-md">
-      <div>
-        <div class="text-h5">Respaldos del sistema</div>
-        <div class="text-subtitle2 text-grey">
-          Genera y descarga backups de la base de datos
-        </div>
+  <q-page class="q-pa-md flex flex-center">
+    <div class="backup-wrapper text-center">
+      <!-- IMAGEN -->
+      <div class="image-box">
+        <img src="~assets/doc-welcome.png" />
       </div>
 
-      <q-btn
-        color="primary"
-        icon="add"
-        label="Crear respaldo"
-        @click="createBackup"
-      />
+      <!-- TITULO -->
+      <div class="text-h5 q-mb-xs">Gestión de Backups</div>
+
+      <div class="text-caption text-grey q-mb-md">
+        Administra los respaldos del sistema
+      </div>
+
+      <!-- CONTADOR -->
+      <q-chip color="primary" text-color="white" class="q-mb-lg" icon="storage">
+        {{ backups.length }} backups disponibles
+      </q-chip>
+
+      <!-- BOTONES -->
+      <div class="actions">
+        <!-- CREAR -->
+        <q-btn
+          unelevated
+          color="primary"
+          icon="add"
+          label="Crear"
+          class="btn-main"
+          @click="createBackup"
+        />
+
+        <!-- IMPORTAR -->
+        <q-btn
+          unelevated
+          color="secondary"
+          icon="upload"
+          label="Importar"
+          class="btn-soft"
+          @click="openImport"
+        />
+
+        <!-- VER -->
+        <q-btn
+          outline
+          color="primary"
+          icon="visibility"
+          label="Ver"
+          class="btn-outline"
+          @click="showList = true"
+        />
+
+        <q-btn
+          color="negative"
+          icon="cleaning_services"
+          label="Limpiar datos"
+          @click="clearData"
+        />
+      </div>
     </div>
 
-    <!-- GRID -->
-    <div class="row q-col-gutter-md">
-      <!-- LISTA -->
-      <div class="col-12 col-md-8">
-        <q-card>
-          <q-card-section class="text-subtitle1">
-            Respaldos disponibles
-          </q-card-section>
-
-          <q-separator />
-
-          <q-list separator>
-            <q-item v-for="b in backups" :key="b.id">
-              <q-item-section avatar>
-                <q-avatar color="blue-1" text-color="primary">
-                  <q-icon name="backup" />
-                </q-avatar>
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>
-                  {{ b.name }}
-                </q-item-label>
-
-                <q-item-label caption>
-                  {{ b.date }} · {{ b.size }}
-                </q-item-label>
-              </q-item-section>
-
-              <q-item-section side>
-                <q-btn
-                  dense
-                  flat
-                  icon="download"
-                  color="green"
-                  @click="downloadBackup(b)"
-                />
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-card>
-      </div>
-      <!-- PANEL INFO -->
-      <div class="col-12 col-md-4">
-        <q-card class="q-pa-md">
-          <div class="text-subtitle1 q-mb-sm">Estado del sistema</div>
-
-          <q-separator class="q-mb-md" />
-
-          <div class="q-mb-sm">
-            <div class="text-caption text-grey">Total respaldos</div>
-            <div class="text-h6">{{ backups.length }}</div>
-          </div>
-
-          <div class="q-mb-sm">
-            <div class="text-caption text-grey">Último respaldo</div>
-            <div class="text-body2">{{ lastBackup }}</div>
-          </div>
-
-          <q-banner class="bg-blue-1 text-primary q-mt-md" rounded>
-            Puedes descargar o generar respaldos en cualquier momento.
-          </q-banner>
-
-          <!-- =========================
-         IMPORTAR RESPALDO
+    <!-- =========================
+         MODAL LISTA BACKUPS
     ========================== -->
-          <q-separator class="q-mt-md q-mb-md" />
+    <q-dialog v-model="showList">
+      <q-card>
+        <q-card-section class="row items-center justify-between">
+          <div class="text-h6">Backups disponibles</div>
 
-          <div class="text-subtitle1 q-mb-sm">Importar respaldo</div>
+          <q-btn flat round icon="close" v-close-popup />
+        </q-card-section>
 
+        <q-separator />
+
+        <q-list>
+          <q-item v-for="b in backups" :key="b.id">
+            <q-item-section avatar>
+              <q-avatar color="blue-1" text-color="primary">
+                <q-icon name="description" />
+              </q-avatar>
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>{{ b.name }}</q-item-label>
+              <q-item-label caption> {{ b.date }} · {{ b.size }} </q-item-label>
+            </q-item-section>
+
+            <q-item-section side>
+              <q-btn
+                flat
+                round
+                icon="download"
+                color="primary"
+                @click="downloadBackup(b)"
+              />
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card>
+    </q-dialog>
+
+    <!-- =========================
+         MODAL IMPORTAR
+    ========================== -->
+    <q-dialog v-model="showImport">
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-subtitle1">Importar respaldo</div>
+        </q-card-section>
+
+        <q-card-section>
           <q-file
             v-model="file"
-            label="Seleccionar archivo"
             filled
+            label="Seleccionar archivo"
             accept=".sql,.json"
-            clearable
-            class="q-mb-sm"
           />
+        </q-card-section>
 
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" v-close-popup />
           <q-btn
-            color="green"
-            icon="upload"
+            color="primary"
             label="Importar"
-            class="full-width"
             :disable="!file"
             @click="importBackup"
           />
-        </q-card>
-      </div>
-    </div>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!-- =========================
+         LOADING
+    ========================== -->
+    <q-dialog v-model="loading" persistent>
+      <q-card class="q-pa-md">
+        <div class="row items-center q-gutter-sm">
+          <q-spinner color="primary" />
+          <div>
+            <div class="text-subtitle2">Creando backup...</div>
+            <div class="text-caption text-grey">
+              Esto puede tardar unos minutos
+            </div>
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, onMounted } from "vue";
+import PouchDB from "pouchdb";
+
+const db = new PouchDB("exmed_db");
+
+const backups = ref([]);
+
+const showList = ref(false);
+const showImport = ref(false);
+const loading = ref(false);
+const file = ref(null);
 
 /* =========================
-   BACKUPS MOCK
+   CARGAR INFO BACKUPS
 ========================= */
-const backups = ref([
-  {
-    id: 1,
-    name: "backup_usuarios.sql",
-    date: "2026-05-01 10:00",
-    size: "2.1 MB",
-  },
-  {
-    id: 2,
-    name: "backup_consultas.sql",
-    date: "2026-04-28 09:30",
-    size: "3.4 MB",
-  },
-  {
-    id: 3,
-    name: "backup_general.sql",
-    date: "2026-04-25 18:10",
-    size: "5.8 MB",
-  },
-]);
+const loadBackupInfo = async () => {
+  const res = await db.allDocs();
+
+  backups.value = [
+    {
+      id: "local",
+      name: "Backup actual",
+      date: new Date().toLocaleString("es-SV"),
+      size: (JSON.stringify(res).length / 1024).toFixed(2) + " KB",
+    },
+  ];
+};
+
+onMounted(loadBackupInfo);
 
 /* =========================
-   COMPUTED
-========================= */
-const lastBackup = computed(() => {
-  return backups.value[0]?.date || "Sin datos";
-});
-
-/* =========================
-   CREATE BACKUP
+   CREAR BACKUP REAL
 ========================= */
 const createBackup = async () => {
-  const newBackup = {
-    id: Date.now(),
-    name: `backup_general_${Date.now()}.sql`,
-    date: new Date().toLocaleString("es-SV"),
-    size: (Math.random() * 5 + 1).toFixed(1) + " MB",
-  };
+  loading.value = true;
 
-  backups.value.unshift(newBackup);
+  try {
+    const res = await db.allDocs({ include_docs: true });
+
+    const data = res.rows.map((r) => r.doc);
+
+    const json = JSON.stringify(data, null, 2);
+
+    const blob = new Blob([json], {
+      type: "application/json",
+    });
+
+    const name = `backup_${Date.now()}.json`;
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = name;
+    link.click();
+
+    backups.value.unshift({
+      id: Date.now(),
+      name,
+      date: new Date().toLocaleString("es-SV"),
+      size: (blob.size / 1024).toFixed(2) + " KB",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  loading.value = false;
 };
 
 /* =========================
-   DOWNLOAD BACKUP
+   IMPORTAR BACKUP REAL
 ========================= */
-const downloadBackup = (backup) => {
-  // Simulación (aquí luego conectas API real)
-  const blob = new Blob(
-    [`-- Backup file: ${backup.name}\n-- Fecha: ${backup.date}`],
-    { type: "text/sql" },
-  );
+const importBackup = async () => {
+  if (!file.value) return;
 
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = backup.name;
-  link.click();
+  const reader = new FileReader();
 
-  URL.revokeObjectURL(link.href);
+  reader.onload = async (e) => {
+    try {
+      const json = JSON.parse(e.target.result);
+
+      loading.value = true;
+
+      for (const doc of json) {
+        try {
+          delete doc._rev; // importante
+          await db.put(doc);
+        } catch (err) {
+          console.warn("Doc duplicado:", doc._id);
+        }
+      }
+
+      loading.value = false;
+      showImport.value = false;
+
+      loadBackupInfo();
+    } catch (err) {
+      console.error("Error importando:", err);
+    }
+  };
+
+  reader.readAsText(file.value);
+};
+
+/* =========================
+   DESCARGAR BACKUP ACTUAL
+========================= */
+const downloadBackup = async () => {
+  await createBackup();
+};
+
+/* =========================
+   MODAL
+========================= */
+const openImport = () => {
+  showImport.value = true;
+};
+
+const clearData = async () => {
+  try {
+    const res = await db.allDocs({ include_docs: true });
+
+    const docsToDelete = res.rows.map((row) => ({
+      _id: row.id,
+      _rev: row.doc._rev,
+      _deleted: true,
+    }));
+
+    if (docsToDelete.length === 0) {
+      console.log("No hay datos para eliminar");
+      return;
+    }
+
+    await db.bulkDocs(docsToDelete);
+
+    console.log("Datos eliminados correctamente");
+
+    loadBackupInfo(); // refresca UI
+  } catch (err) {
+    console.error("Error limpiando datos:", err);
+  }
 };
 </script>
-
 <style scoped>
+.backup-wrapper {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* IMAGEN */
+.image-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image-box img {
+  width: 140px;
+  opacity: 0.9;
+}
+
+/* BOTONES */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions .q-btn {
+  min-width: 110px;
+  border-radius: 8px;
+}
+
+/* MOBILE */
 @media (max-width: 600px) {
-  .text-h5 {
-    font-size: 18px;
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .q-btn {
+    width: 100%;
   }
 }
 </style>

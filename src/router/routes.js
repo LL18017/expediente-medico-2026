@@ -1,82 +1,135 @@
 const routes = [
-
   {
     path: "/login",
     component: () => import("layouts/AuthLayout.vue"),
-    children: [{ path: "", component: () => import("pages/auth/LoginView.vue") }],
+    children: [
+      { path: "", component: () => import("pages/auth/LoginView.vue") },
+    ],
   },
 
-  {//dashboard Boorrar
+  {
+    //dashboard Boorrar
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/IndexView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("pages/dashboard/DashboardView.vue"),
+      },
+    ],
   },
 
   {
     path: "/setup",
     component: () => import("layouts/AuthLayout.vue"),
-    children: [{ path: "", component: () => import("pages/auth/RegistroView.vue") }],
+    children: [
+      { path: "", component: () => import("pages/auth/RegistroView.vue") },
+    ],
   },
 
-  {//dashboard
+  {
+    //dashboard
     path: "/expediente",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/IndexView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("pages/dashboard/DashboardView.vue"),
+      },
+    ],
   },
-  {//politicas y privaciadad
+  {
+    //politicas y privaciadad
     path: "/expediente/politicas-privacidad",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/PoliticasPrivacidadView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/PoliticasPrivacidadView.vue"),
+      },
+    ],
   },
-  {//administar pacientes
+  {
+    //administar pacientes
     path: "/expediente/pacientes",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/PacientesView.vue") }],
+    children: [
+      { path: "", component: () => import("pages/PacientesView.vue") },
+    ],
   },
-  {//administar recetas
+  {
+    //administar recetas
     path: "/expediente/recetas",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/RecetasView.vue") }],
+    children: [
+      { path: "", component: () => import("src/pages/RecetasView.vue") },
+    ],
   },
   {
     path: "/expediente/paciente",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/MyExpediente.vue") }],
+    children: [
+      { path: "", component: () => import("src/pages/MyExpediente.vue") },
+    ],
   },
-  {//administar clinicas
+  {
+    //administar clinicas
     path: "/expediente/clinicas",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/ClinicasView.vue") }],
+    children: [
+      { path: "", component: () => import("src/pages/ClinicasView.vue") },
+    ],
   },
   {
     path: "/expediente/consultas", //Cambiar luego
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/ConsultasView.vue") }],
+    children: [
+      { path: "", component: () => import("pages/ConsultasView.vue") },
+    ],
   },
   {
     path: "/expediente/examenes",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/ExamenesView.vue") }],
+    children: [
+      { path: "", component: () => import("src/pages/ExamenesView.vue") },
+    ],
   },
   {
     path: "/expediente/desarrolladores",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/DesarrolladoresView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/DesarrolladoresView.vue"),
+      },
+    ],
   },
   {
     path: "/expediente/politicas-privacidad",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/PoliticasPrivacidadView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/PoliticasPrivacidadView.vue"),
+      },
+    ],
   },
   {
     path: "/expediente/registro-consulta",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/RegistroConsultaView.vue") }],
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/RegistroConsultaView.vue"),
+      },
+    ],
   },
   {
     path: "/expediente/backup",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/backupView.vue") }],
+    children: [
+      { path: "", component: () => import("src/pages/backupView.vue") },
+    ],
   },
 
   {
